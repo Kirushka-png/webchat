@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+export const MAIN_IP = '146.247.34.58'
 function App() {
   return (
     <div className="App">
