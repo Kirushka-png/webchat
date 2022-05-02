@@ -1,25 +1,77 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Cookies from 'codebase/Cookies';
+import Login from 'components/pages/Login/Login';
+import Chat from 'components/pages/Chat/Chat';
+import Registration from 'components/pages/Login/Registration';
+import Modal from 'components/pages/Login/RegistrationModal';
+import Main from 'components/pages/Main/Main';
+import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
+import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from "react-router-dom";
+import Htmlcontainer from 'styles/App';
+//<Route path="/main/diagnostics">
+//<Diagnostics />
+// </Route>
+
+export interface IUserData {
+  name: string,
+  login: string,
+  password: string
+}
 export const MAIN_IP = '146.247.34.58'
-function App() {
+
+
+const App = () => {
+  const data = { name: "123", login: "123", password: "123" }
+
+  const [chatOpened, setChatOpened] = useState(false)
+  const [userData, setUserData] = useState<IUserData | null>(null)
+
+  useEffect(() => {
+    let login = Cookies.getCookie('login')
+    let password = Cookies.getCookie('password')
+    if (login && password) {
+      fetch(process.env.NODE_ENV == 'development' ? "/acceptLogin" : `http://${MAIN_IP}:5000/acceptLogin`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ login, password })
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          !data.error && setUserData({ name: data.name, login: data.login, password: data.password })
+        });
+    }
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Htmlcontainer>
+
+      <Routes>
+        {
+          !userData ? <>
+            <Route path="/" element={<Navigate to="/reg" replace />} />
+            <Route path="login" element={<Login />} />
+            <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
+            <Route path="reg" element={<Registration />} />
+            <Route path="modal" element={<Modal />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="chatmd" element={<ChatMobilDialogs />} />
+            <Route path="chatmch" element={<ChatMobilChat />} />
+          </>
+            : <>
+              <Route path="*" element={<Navigate to="/main" replace />} />
+              <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
+            </>
+        }
+      </Routes>
+
+    </Htmlcontainer>
   );
 }
 

@@ -1,5 +1,5 @@
 import { ModalWrapper, ModalContainer, ModalText, ModalMiniText, ModalButton, ModalCont } from '../../../styles/pages/Login/LoginModal'
-import Icon from 'images/ok.png';
+import Icon from '../../../images/Login/ok.png';
 
 const RegistrationModal = () => {
   return (
