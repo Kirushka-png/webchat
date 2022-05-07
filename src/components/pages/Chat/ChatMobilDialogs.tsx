@@ -23,9 +23,9 @@ import {
   DialogUsers,
 } from "../../../styles/pages/Chat/ChatMobilDialogs";
 
+import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
 
-
-const RegistrationModal = () => {
+const ChatMobilDialogs = () => {
 
     const isDesktop = useMediaQuery({
         query: "(min-width: 1000px)"
@@ -41,7 +41,7 @@ const RegistrationModal = () => {
               <ModalHeader>
               <ModalText style={{  width: "100px",fontSize: "42px", height:"50px" }}>Чаты</ModalText>
                 <ModalSettings >    
-                  <Settings style={{ width: "50px", marginRight:"0px" }} />
+                  <MenuItemSettings/>
                 </ModalSettings>
               </ModalHeader>
 
@@ -70,4 +70,4 @@ const RegistrationModal = () => {
   );
 };
 
-export default RegistrationModal;
+export default ChatMobilDialogs;

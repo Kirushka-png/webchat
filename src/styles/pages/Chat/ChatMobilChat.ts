@@ -102,6 +102,7 @@ export const ModalMenu = styled.div`
     margin-right: auto;
     gap:10px;
     height:100%;
+    width:10%;
 `
 
 export const ModalButtons = styled.div`

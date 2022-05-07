@@ -13,12 +13,12 @@ export const ModalWrapper = styled.div`
 export const ModalHeader = styled.div`
     display:flex;
     flex-direction:row;
-    width: 90%;
+    width: 100%;
     gap:10px;
     justify-content: center;
     align-items:center;
     height:70px;
-    padding:20px;   
+    padding:20px;  
     @media (max-width:800px) {
     }
 `
@@ -96,6 +96,7 @@ export const ModalName = styled.div`
 `
 export const ModalMenu = styled.div`
     display:flex;
+    width:7%;
     flex-direction:column;
     justify-content: center;
     align-items:flex-start;
@@ -157,7 +158,7 @@ export const ModalContainer = styled.div`
 
 export const ModalText = styled.text`
     font-size: 24px;
-    @media (max-width:800px) {
+    @media (max-width:1200px) {
         font-size: 16px;
         height:15px;
     }   
@@ -246,7 +247,7 @@ export const DialogUsers = styled.div`
     display:flex;
     flex-direction:column;
     width: 90%;
-    gap:50px;
+    gap:0px;
     //justify-content: flex-end;
     align-self: center;
     align-items:center;
@@ -279,8 +280,14 @@ export const DialogUsers = styled.div`
 export const DialogItem = styled.div`
     width: 100%;
     flex-direction:row;
-    gap: 50px;
+    gap: 30px;
+    padding-top:20px;
+    padding-bottom:20px;
     justify-content: center;
     align-items:center;
     display: flex;
+`
+
+export const DialogItemCheck = styled(DialogItem)`
+    background-color:rgba(84, 150, 255, 0.2);
 `

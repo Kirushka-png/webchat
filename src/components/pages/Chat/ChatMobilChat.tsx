@@ -28,9 +28,9 @@ import {
 
 } from "../../../styles/pages/Chat/ChatMobilChat";
 
+import { MenuItem } from "components/pages/Menu/Menu";
 
-
-const RegistrationModal = () => {
+const ChatMobilChat = () => {
 
     const isDesktop = useMediaQuery({
         query: "(min-width: 1000px)"
@@ -48,7 +48,7 @@ const RegistrationModal = () => {
         <Chat>
             <ModalHeader>
               <ModalMenu>
-                <Menu style={{ width: "30px",height:"30px" }} />
+                <MenuItem/>
               </ModalMenu>
               <Veronika style={{ width: "40px",height:"40px" }} />
               <ModalName>
@@ -75,4 +75,4 @@ const RegistrationModal = () => {
   );
 };
 
-export default RegistrationModal;
+export default ChatMobilChat;

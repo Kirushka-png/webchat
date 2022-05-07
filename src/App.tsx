@@ -1,5 +1,6 @@
 import Cookies from 'codebase/Cookies';
 import Login from 'components/pages/Login/Login';
+import ChatDesktop from 'components/pages/Chat/ChatDesktop';
 import Chat from 'components/pages/Chat/Chat';
 import Registration from 'components/pages/Login/Registration';
 import Modal from 'components/pages/Login/RegistrationModal';
@@ -60,6 +61,7 @@ const App = () => {
             <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
             <Route path="reg" element={<Registration />} />
             <Route path="modal" element={<Modal />} />
+            <Route path="chatd" element={<ChatDesktop />} />
             <Route path="chat" element={<Chat />} />
             <Route path="chatmd" element={<ChatMobilDialogs />} />
             <Route path="chatmch" element={<ChatMobilChat />} />

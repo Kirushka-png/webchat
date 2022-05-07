@@ -15,7 +15,7 @@ export const ModalHeader = styled.div`
     flex-direction:row;
     width: 90%;
     gap:10px;
-    height:50px;
+    height:70px;
     justify-content: center;
     align-items:center;
     padding:20px;   
