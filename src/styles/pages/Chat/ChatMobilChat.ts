@@ -19,8 +19,6 @@ export const ModalHeader = styled.div`
     align-items:center;
     height:70px;
     padding:20px;   
-    @media (max-width:800px) {
-    }
 `
 export const ModalBody = styled.div`
     display:flex;
@@ -86,8 +84,8 @@ export const BodySmsButton = styled.div`
 `
 export const ModalName = styled.div`
     display:flex;
-    flex-direction:column;
-    width: 40%;
+    flex-direction:column; 
+    width: 30%;
     justify-content: center;
     align-items:center;
     margin-right: auto;
@@ -103,6 +101,7 @@ export const ModalMenu = styled.div`
     gap:10px;
     height:100%;
     width:10%;
+    width: 30%;
 `
 
 export const ModalButtons = styled.div`
@@ -205,7 +204,7 @@ export const SmsInput = styled.input`
     border-radius: 11px;
     border-radius: 8px;
     @media (max-width:1200px) {
-        width: 60%;
+        width: 50%;
     }
     @media (max-width:800px) {
         width: 40%; 
@@ -214,4 +213,13 @@ export const SmsInput = styled.input`
         width: 50%; 
         height: 40px;
     }
+`
+export const ModalSettings = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:flex-end;
+    margin-left: auto;
+    gap:10px;
+    width: 30%;
 `

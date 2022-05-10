@@ -120,9 +120,9 @@ export const ModalButtons = styled.div`
     justify-content: space-around;
     align-items:center;
     padding:35px;
-    @media (max-width:800px) {
+    @media (max-width:1200px) {
         width: 95%;
-        height:25%;
+        padding:30px;
     }  
 `
 export const ModalContainer = styled.div`
@@ -234,7 +234,7 @@ export const SmsInput = styled.input`
     border-radius: 11px;
     border-radius: 8px;
     @media (max-width:1200px) {
-        width: 60%;
+        width: 50%;
     }
     @media (max-width:800px) {
         width: 78%; 

@@ -21,12 +21,18 @@ const StyledMenu = styled.nav<{ open: boolean }>`
   background-color: #5496FF;
   padding-top: 70px;
   flex-direction: column;
-  display: ${({ open }) => (open ? "flex" : "none")};
-  @media (max-width:1000px) {
-        width: 80%;
+  display: ${({ open }) => (open ? "flex" : "none")}; 
+  @media (max-width:1500px) {       
+    right:10%;
+    width:40%;
+  } 
+    @media (max-width:1000px) {       
+    right:10%;
+    top: 5%;
+    width:31.5%;
+    width: 80%;
       height:270px;
-      left:10%;
-    }  
+  } 
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;

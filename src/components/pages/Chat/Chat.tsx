@@ -10,7 +10,7 @@ const Chat = () => {
 
   return (
     <ModalWrapper>
-      {isDesktop ? <ChatDesktop/> : <ChatMobilDialogs/>}
+      {isDesktop ? <ChatDesktop/> : <ChatMobilChat/>}
     </ModalWrapper>
   );
 };

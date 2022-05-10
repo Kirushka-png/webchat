@@ -1,12 +1,16 @@
 import Cookies from 'codebase/Cookies';
 import Login from 'components/pages/Login/Login';
 import ChatDesktop from 'components/pages/Chat/ChatDesktop';
+import ChatDesktopSearch from 'components/pages/Chat/ChatDesktopSearch';
 import Chat from 'components/pages/Chat/Chat';
 import Registration from 'components/pages/Login/Registration';
 import Modal from 'components/pages/Login/RegistrationModal';
+import ModalDelete from 'components/pages/Chat/DeleteModal';
+import ModalClear from 'components/pages/Chat/ClearModal';
 import Main from 'components/pages/Main/Main';
 import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
 import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
+import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
@@ -60,11 +64,15 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
             <Route path="reg" element={<Registration />} />
+            <Route path="modald" element={<ModalDelete />} />
+            <Route path="modalc" element={<ModalClear />} />
             <Route path="modal" element={<Modal />} />
             <Route path="chatd" element={<ChatDesktop />} />
+            <Route path="chatdsh" element={<ChatDesktopSearch />} />
             <Route path="chat" element={<Chat />} />
             <Route path="chatmd" element={<ChatMobilDialogs />} />
             <Route path="chatmch" element={<ChatMobilChat />} />
+            <Route path="chatmchsh" element={<ChatMobilChatSearch />} />
           </>
             : <>
               <Route path="*" element={<Navigate to="/main" replace />} />
