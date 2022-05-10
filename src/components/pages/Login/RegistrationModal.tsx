@@ -9,7 +9,7 @@ const RegistrationModal = () => {
           <img src={Icon} style={{ "height": "50px", "width": "50px" }} />
           <ModalText>Добро пожаловать!</ModalText>
           <ModalMiniText>Спасибо, регистрация завершена</ModalMiniText>
-          <ModalButton href="/main/diagnostics">Перейти к диагностике</ModalButton>
+          <ModalButton href="/chat">Зайти в чат</ModalButton>
         </ModalContainer>
       </ModalCont>
     </ModalWrapper>
