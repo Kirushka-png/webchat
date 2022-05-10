@@ -3,6 +3,10 @@ export const userModel = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        login: {
+            type: DataTypes.STRING,
+            allowNull: false,
             unique: true
         },
         password: {
