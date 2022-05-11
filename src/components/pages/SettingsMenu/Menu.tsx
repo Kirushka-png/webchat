@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {ReactComponent as PersonCircle} from 'images/SettingsImg/PersonCircle.svg';
 import {ReactComponent as TextareaT} from 'images/SettingsImg/TextareaT.svg';
 import {ReactComponent as XCircle} from 'images/SettingsImg/XCircle.svg';
 import { Link } from 'react-router-dom';
 import { IUserData } from 'App';
-
+import { Context } from 'index'
 
 import Hamburger from "components/pages/SettingsMenu/Hamburger";
 
@@ -67,12 +67,14 @@ export const MenuItemSettings = () => {
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
 
+  const { store } = useContext(Context)
+
   return (
     <div>
       <StyledMenu open={open}>
         <StyledLinkTop to="" onClick={() => close()}><TextareaT style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить ник</StyledLinkTop>
         <StyledLink to="" onClick={() => close()}><PersonCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить аватар</StyledLink>
-        <StyledLink to="" onClick={() => close()}><XCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Выйти</StyledLink>
+        <StyledLink to="" onClick={() => store.logout()}><XCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Выйти</StyledLink>
 
       </StyledMenu>
       <Hamburger open={open} setOpen={setOpen} />

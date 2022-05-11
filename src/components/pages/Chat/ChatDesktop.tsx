@@ -1,4 +1,7 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
+import { useState, useEffect, useContext } from 'react'
+import UserCard from './userCard/UserCard'
+import { IUser } from "codebase/models/IUser";
 import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
 import { ReactComponent as LineVert } from "images/Chat/LineVert.svg";
 import { ReactComponent as Online } from "images/Chat/Online.svg";
@@ -9,6 +12,8 @@ import { ReactComponent as Settings } from "images/Chat/Gear.svg";
 import UserIcon from "images/Chat/UserImg.png";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
 import { useMediaQuery } from "react-responsive";
+import { observer } from 'mobx-react-lite'
+import UserService from 'codebase/services/UserService';
 import {
   BodySmsBot,
   BodySmsButton,
@@ -34,7 +39,7 @@ import {
 
 import { MenuItem } from "components/pages/Menu/Menu";
 import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
-
+import { Context } from 'index';
 
 const ChatMobilDesktop = () => {
   const isDesktop = useMediaQuery({
@@ -44,6 +49,23 @@ const ChatMobilDesktop = () => {
   const isDesktop1 = useMediaQuery({
     query: "(min-width: 1500px)",
   });
+
+  const [users, setUsers] = useState<IUser[]>([])
+
+  const { store } = useContext(Context)
+
+  async function getUsers(){
+    try {
+        const response = await UserService.fetchUsers()
+        console.log(response)
+        setUsers(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   return (
     <ModalWrapper>
@@ -96,18 +118,9 @@ const ChatMobilDesktop = () => {
                 <ModalText style={{ marginTop: "20px" }}>Your Name</ModalText>
               </DialogsUser>
               <DialogUsers>
-                <DialogItemCheck>
-                  <Veronika style={{ width: "50px" }} />
-                  <ModalText>Вероника Смирнова</ModalText>
-                </DialogItemCheck>
-                <DialogItem>
-                  <Veronika style={{ width: "50px" }} />
-                  <ModalText>Вероника Смирнова</ModalText>
-                </DialogItem>
-                <DialogItem>
-                  <Veronika style={{ width: "50px" }} />
-                  <ModalText>Вероника Смирнова</ModalText>
-                </DialogItem>
+                {
+                  users.map((user, index) => <UserCard key={index} user={user}></UserCard>)
+                }
               </DialogUsers>
             </Dialogs>
           </ModalContainer>
@@ -116,4 +129,4 @@ const ChatMobilDesktop = () => {
   );
 };
 
-export default ChatMobilDesktop;
+export default  observer(ChatMobilDesktop);

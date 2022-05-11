@@ -4,12 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
-import { render } from "react-dom";
+import Store from 'codebase/store/store';
+import { createContext } from 'react';
+
+interface IStore {
+  store: Store
+}
+const store = new Store()
+
+export const Context = createContext<IStore>(({
+  store
+}))
+
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <App />
+      <Context.Provider value={{ store }}>
+        <App />
+      </Context.Provider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root')

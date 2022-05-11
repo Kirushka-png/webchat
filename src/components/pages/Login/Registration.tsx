@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMediaQuery } from "react-responsive";
 import { LoginBlock, LoginButton, LinkButton, LoginContainer, LoginImage, LoginInput, LoginRegistr, LoginRegistrText, LoginText, LoginWrapper, NameInput, PasswordInput, PasswordWrapper, ShowIcon } from 'styles/pages/Login/Registration';
 import RegistrationModal from '../../../components/pages/Login/RegistrationModal'
 import Cookies from '../../../codebase/Cookies'
 import { MAIN_IP } from "../../../App";
+import { Context } from "index";
 
 const Registration = () => {
 
@@ -45,6 +46,7 @@ const Registration = () => {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1200px)"
   });
+  const { store } = useContext(Context)
   return (
     <LoginWrapper>
       {modalIsOpen && <RegistrationModal></RegistrationModal>}
@@ -66,7 +68,7 @@ const Registration = () => {
             <PasswordInput placeholder='Пароль ещё раз' value={repeatPassword} type={inputTypeRepeat} onChange={(e) => setRepeatPassword(e.target.value.replace(/\s/g, ""))} />
             <ShowIcon onClick={() => setInputTypeRepeat(a => a.includes('password') ? 'text' : 'password')} />
           </PasswordWrapper>
-          <LoginButton onClick={() => onReg()}>Зарегистрироваться</LoginButton>
+          <LoginButton onClick={() => store.registration(name, login, password)}>Зарегистрироваться</LoginButton>
         </LoginContainer>
         {isDesktop && <LoginImage />}
       </LoginBlock>

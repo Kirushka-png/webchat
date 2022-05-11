@@ -11,9 +11,11 @@ import Main from 'components/pages/Main/Main';
 import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
 import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
 import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite'
 //<Route path="/main/diagnostics">
 //<Diagnostics />
 // </Route>
@@ -31,35 +33,20 @@ const App = () => {
 
   const [chatOpened, setChatOpened] = useState(false)
   const [userData, setUserData] = useState<IUserData | null>(null)
+  const { store } = useContext(Context)
 
   useEffect(() => {
-    let login = Cookies.getCookie('login')
-    let password = Cookies.getCookie('password')
-    if (login && password) {
-      fetch(process.env.NODE_ENV == 'development' ? "/acceptLogin" : `http://${MAIN_IP}:5000/acceptLogin`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({ login, password })
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          !data.error && setUserData({ name: data.name, login: data.login, password: data.password })
-        });
+    if(localStorage.getItem('token')){
+      store.checkAuth()
     }
   }, [])
-
+  
 
   return (
     <Htmlcontainer>
-
       <Routes>
         {
-          !userData ? <>
+          store.isLoading ? <></> : !store.isAuth ? <>
             <Route path="/" element={<Navigate to="/reg" replace />} />
             <Route path="login" element={<Login />} />
             <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
@@ -69,14 +56,16 @@ const App = () => {
             <Route path="modal" element={<Modal />} />
             <Route path="chatd" element={<ChatDesktop />} />
             <Route path="chatdsh" element={<ChatDesktopSearch />} />
-            <Route path="chat" element={<Chat />} />
             <Route path="chatmd" element={<ChatMobilDialogs />} />
             <Route path="chatmch" element={<ChatMobilChat />} />
             <Route path="chatmchsh" element={<ChatMobilChatSearch />} />
           </>
             : <>
-              <Route path="*" element={<Navigate to="/main" replace />} />
+              <Route path="*" element={<Navigate to="/chat" replace />} />
+              <Route path="/login" element={<Navigate to="/chat" replace />} />
+              <Route path="/reg" element={<Navigate to="/chat" replace />} />
               <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
+              <Route path="chat" element={<Chat />} />
             </>
         }
       </Routes>
@@ -85,4 +74,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default observer(App);
