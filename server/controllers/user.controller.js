@@ -50,6 +50,15 @@ class UserController {
             next(error)
         }
     }
+
+    async changeAvatar(req, res, next) {
+        try {
+            const user = await userService.changeAvatar(req.headers.authorization, req.file)
+            return res.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 export const userController = new UserController();

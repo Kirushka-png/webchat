@@ -10,7 +10,7 @@ export const userModel = (sequelize, DataTypes) => {
             unique: true
         },
         image: {
-            type: DataTypes.BLOB,
+            type: DataTypes.STRING,
             allowNull: true,
         },
         password: {

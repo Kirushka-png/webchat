@@ -1,10 +1,24 @@
 import bcrypt from 'bcrypt'
-import { tokenService } from "./token.service.js"
 import { UserDTO } from "../dtos/user.dto.js"
-import { db } from '../model/index.js'
 import { ApiError } from '../exceptions/api.error.js'
+import { db } from '../model/index.js'
+import { tokenService } from "./token.service.js"
+
+
 
 class UserService {
+
+    async defaultResponse(user) {
+        console.log(user)
+        const userDTO = new UserDTO(user);
+        console.log(userDTO)
+        const tokens = tokenService.generateTokens({...userDTO })
+
+        await tokenService.saveToken(userDTO.id, tokens.refreshToken)
+
+        return {...tokens, user: userDTO }
+    }
+
     async registration(name, login, password) {
         const newUser = await db.models.userModel.findOne({ where: { login: login } })
         if (newUser) {
@@ -13,12 +27,7 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 3)
         const user = await db.models.userModel.create({ name, login, password: hashPassword })
 
-        const userDTO = new UserDTO(user);
-        const tokens = tokenService.generateTokens({...userDTO })
-
-        await tokenService.saveToken(userDTO.id, tokens.refreshToken)
-
-        return {...tokens, user: userDTO }
+        return this.defaultResponse(user)
     }
 
     async login(login, password) {
@@ -32,12 +41,7 @@ class UserService {
             throw ApiError.BadRequest(`Incorrect password`)
         }
 
-        const userDTO = new UserDTO(user)
-        const tokens = tokenService.generateTokens({...userDTO })
-
-        await tokenService.saveToken(userDTO.id, tokens.refreshToken)
-
-        return {...tokens, user: userDTO }
+        return this.defaultResponse(user)
     }
     async logout(refreshToken) {
         const token = await tokenService.removeToken(refreshToken)
@@ -54,12 +58,16 @@ class UserService {
         }
 
         const user = await db.models.userModel.findByPk(userData.id)
-        const userDTO = new UserDTO(user);
-        const tokens = tokenService.generateTokens({...userDTO })
 
-        await tokenService.saveToken(userDTO.id, tokens.refreshToken)
+        return this.defaultResponse(user)
+    }
 
-        return {...tokens, user: userDTO }
+    async changeAvatar(accessToken, image) {
+        const userData = tokenService.validateAccessToken(accessToken);
+
+        await db.models.userModel.update({ image: image.filename }, { where: { id: userData.id } })
+
+        return this.defaultResponse(userData)
     }
 
     async getAllUsers() {

@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken'
 import { db } from '../model/index.js'
-import { tokenModel } from '../model/token.model.js'
 
 class TokenService {
     generateTokens(payload) {
@@ -31,6 +30,7 @@ class TokenService {
     }
 
     async saveToken(userId, refreshToken) {
+        console.log(refreshToken)
         const tokenData = await db.models.tokenModel.findOne({ where: { userID: userId } })
         if (tokenData) {
             tokenData.refreshToken = refreshToken;
