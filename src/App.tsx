@@ -9,6 +9,7 @@ import ModalDelete from 'components/pages/Chat/DeleteModal';
 import ModalClear from 'components/pages/Chat/ClearModal';
 import Main from 'components/pages/Main/Main';
 import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
+import ChatMobilChatDrop from 'components/pages/Chat/ChatMobilChatDrop';
 import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
 import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
 import { useEffect, useState, useContext } from 'react';
@@ -59,6 +60,7 @@ const App = () => {
             <Route path="chatmd" element={<ChatMobilDialogs />} />
             <Route path="chatmch" element={<ChatMobilChat />} />
             <Route path="chatmchsh" element={<ChatMobilChatSearch />} />
+            <Route path="chatdrop" element={<ChatMobilChatDrop />} />
           </>
             : <>
               <Route path="*" element={<Navigate to="/chat" replace />} />
