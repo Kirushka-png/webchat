@@ -42,6 +42,44 @@ export const ModalContainer = styled.div`
         gap:25px;
     }
 `
+export const ModalContainerDrop = styled(ModalContainer)`
+    width: 40%;
+    height: 50%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    @media (max-width:1500px) {
+        width: 50%;
+    }
+    @media (max-width:1200px) {
+        width: 60%;
+    }
+    @media (max-width:1000px) {
+        width: 65%;
+    }
+    @media (max-width:800px) {
+        width: 80%;
+    }
+
+`
+interface DropContainerProps {imgback:string | undefined}
+export const DropContainer = styled.div`
+    width: 80%;
+    height: 60%; 
+    display:flex;
+    justify-content: center;
+    align-items:center;
+`
+export const DropContainerImage = styled.div<DropContainerProps>`
+    width: 100%;
+    height: 100%;
+    display:flex;
+    border: ${(props:DropContainerProps)=> !props.imgback && `5px dashed #5496FF`};
+    justify-content: center;
+    align-items:center;
+    background-image:${(props:DropContainerProps)=> props.imgback ? `url(${props.imgback})` : `none`};
+    background-size:cover;
+    background-position:center;
+`
 
 export const ModalText = styled.text`
     font-size: 30px;
@@ -55,6 +93,23 @@ export const ModalMiniText = styled.text`
     text-align:center; 
     @media (max-width:800px) {
         font-size: 16px;  
+    }
+`
+export const ModalButtonInput = styled.label`
+    width: 30%;
+    height: 45px;
+    font-size: 16px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background: #5496FF;
+    border-radius: 8px;
+    color: white;
+    border:0;
+    @media (max-width:600px) {
+        font-size: 14px; 
+        width: 40%; 
     }
 `
 export const ModalButton = styled.a`
