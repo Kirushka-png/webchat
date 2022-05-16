@@ -9,9 +9,12 @@ import ModalDelete from 'components/pages/Chat/DeleteModal';
 import ModalClear from 'components/pages/Chat/ClearModal';
 import Main from 'components/pages/Main/Main';
 import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
+import ChatMobilSearchChat from 'components/pages/Chat/ChatMobilSearchChat';
+import ChatDeskDialogs from 'components/pages/Chat/ChatDeskDialogs';
 import ChatMobilChatDrop from 'components/pages/Chat/ChatMobilChatDrop';
 import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
 import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
+import ChatAttachments from 'components/pages/Chat/ChatAttachments';
 import { useEffect, useState, useContext } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
@@ -58,9 +61,13 @@ const App = () => {
             <Route path="chatd" element={<ChatDesktop />} />
             <Route path="chatdsh" element={<ChatDesktopSearch />} />
             <Route path="chatmd" element={<ChatMobilDialogs />} />
+            <Route path="chatmsh" element={<ChatMobilSearchChat />} />
+            <Route path="chatdd" element={<ChatDeskDialogs />} />
             <Route path="chatmch" element={<ChatMobilChat />} />
             <Route path="chatmchsh" element={<ChatMobilChatSearch />} />
             <Route path="chatdrop" element={<ChatMobilChatDrop />} />
+            <Route path="chatat" element={<ChatAttachments />} />
+            <Route path="chat" element={<Chat />} />
           </>
             : <>
               <Route path="*" element={<Navigate to="/chat" replace />} />

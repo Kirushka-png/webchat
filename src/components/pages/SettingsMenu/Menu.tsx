@@ -6,9 +6,10 @@ import {ReactComponent as XCircle} from 'images/SettingsImg/XCircle.svg';
 import { Link } from 'react-router-dom';
 import { IUserData } from 'App';
 import { Context } from 'index'
-
+import UserIcon from "images/Chat/UserImg.png";
+import { useMediaQuery } from "react-responsive";
 import Hamburger from "components/pages/SettingsMenu/Hamburger";
-
+import {ModalText} from "../../../styles/pages/Chat/Chat";
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
   right:15%;
@@ -30,7 +31,7 @@ const StyledMenu = styled.nav<{ open: boolean }>`
     top: 5%;
     width:31.5%;
     width: 80%;
-    height:170px;
+    height:310px;
   }  
 `;
 const StyledLink = styled(Link)`
@@ -53,9 +54,11 @@ const StyledLinkTop = styled(StyledLink)`
     padding-top:10px;
   } 
 `;
-const Icons = styled.div`
+const User = styled.div`
   display:flex;
-  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
 `;
 
 interface Props{
@@ -68,14 +71,23 @@ export const MenuItemSettings = () => {
   const close = () => setOpen(false);
 
   const { store } = useContext(Context)
-
+  const isDesktop1 = useMediaQuery({
+    query: "(min-width: 1000px)",
+  });
   return (
     <div>
       <StyledMenu open={open}>
+        <User>
+      {!isDesktop1 && 
+        <img src={UserIcon} style={{ height: "100px", width: "100px"}}/> 
+        }
+      {!isDesktop1 && 
+        <ModalText style={{ marginTop: "20px", color:"white", marginBottom:"20px" }}>Your Name</ModalText>
+        }
+        </User>
         <StyledLinkTop to="" onClick={() => close()}><TextareaT style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить ник</StyledLinkTop>
         <StyledLink to="" onClick={() => close()}><PersonCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить аватар</StyledLink>
         <StyledLink to="" onClick={() => store.logout()}><XCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Выйти</StyledLink>
-
       </StyledMenu>
       <Hamburger open={open} setOpen={setOpen} />
      </div>

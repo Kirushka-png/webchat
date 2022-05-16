@@ -1,5 +1,5 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
-import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
+import { ReactComponent as LineHor } from "images/Chat/LineHorD.svg";
 import { ReactComponent as LineVert } from "images/Chat/LineVert.svg";
 import { ReactComponent as Online } from "images/Chat/Online.svg";
 import { ReactComponent as Veronika } from "images/Chat/Veronika.svg";
@@ -22,34 +22,37 @@ import {
   DialogItem,
   DialogUsers,
 } from "../../../styles/pages/Chat/ChatMobilDialogs";
-import { ReactComponent as Search } from "images/Chat/Search.svg";
+import { SmsInput} from "../../../styles/pages/Chat/Chat";
 import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
+import { ReactComponent as Search } from "images/Chat/Search.svg";
 
-const ChatMobilDialogs = () => {
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 1000px)",
-  });
+const ChatDeskDialogs = () => {
+
+    const isDesktop = useMediaQuery({
+        query: "(min-width: 1000px)"
+      });
 
   return (
+      
     <ModalWrapper>
       <ModalCont>
         <ModalContainer>
           <Dialogs>
             <DialogsUser>
-              <ModalHeader style={{ width: "90%" }}>
-                <ModalSettings style={{ marginLeft: "0", width: "32px" }}>
-                  <MenuItemSettings />
+              <ModalHeader>
+              <ModalText style={{  width: "100px",fontSize: "42px", height:"50px", marginLeft:"5%"}}>Чаты</ModalText>
+              <Search style={{ marginLeft:"7%",marginRight:"10px"  }}/>
+                <SmsInput placeholder="Поиск собеседника" />
+                <ModalSettings >    
+                  <MenuItemSettings/>
                 </ModalSettings>
-                <ModalText style={{width: "100px",fontSize: "24px",height: "50px",marginTop: "auto",textAlign: "start",marginRight: "auto"}}>
-                  Чаты
-                </ModalText>
-                <Search style={{ marginLeft: "7%", marginRight: "10px" }} />
               </ModalHeader>
+
             </DialogsUser>
             <DialogUsers>
-              <DialogItem>
+              <DialogItem >
                 <Veronika style={{ width: "50px" }} />
-                <ModalText>Вероника Смирнова</ModalText>
+                <ModalText>Вероника Смирнова</ModalText>         
               </DialogItem>
               <LineHor style={{ width: "100%" }} />
               <DialogItem>
@@ -61,6 +64,7 @@ const ChatMobilDialogs = () => {
                 <Veronika style={{ width: "50px" }} />
                 <ModalText>Вероника Смирнова</ModalText>
               </DialogItem>
+
             </DialogUsers>
           </Dialogs>
         </ModalContainer>
@@ -69,4 +73,4 @@ const ChatMobilDialogs = () => {
   );
 };
 
-export default ChatMobilDialogs;
+export default ChatDeskDialogs;

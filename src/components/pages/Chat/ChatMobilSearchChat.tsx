@@ -23,9 +23,11 @@ import {
   DialogUsers,
 } from "../../../styles/pages/Chat/ChatMobilDialogs";
 import { ReactComponent as Search } from "images/Chat/Search.svg";
-import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
+import { SmsInput} from "../../../styles/pages/Chat/Chat";
+import {ModalButtons} from "../../../styles/pages/Chat/ChatMobilChat";
+import  { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 
-const ChatMobilDialogs = () => {
+const ChatMobilSearchChat = () => {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1000px)",
   });
@@ -35,17 +37,13 @@ const ChatMobilDialogs = () => {
       <ModalCont>
         <ModalContainer>
           <Dialogs>
-            <DialogsUser>
-              <ModalHeader style={{ width: "90%" }}>
-                <ModalSettings style={{ marginLeft: "0", width: "32px" }}>
-                  <MenuItemSettings />
-                </ModalSettings>
-                <ModalText style={{width: "100px",fontSize: "24px",height: "50px",marginTop: "auto",textAlign: "start",marginRight: "auto"}}>
-                  Чаты
-                </ModalText>
-                <Search style={{ marginLeft: "7%", marginRight: "10px" }} />
-              </ModalHeader>
-            </DialogsUser>
+
+            <ModalButtons>
+                <ArrowLeft style={{ width: "40px" }} />
+                <SmsInput placeholder="Поиск чата" style={{ marginTop: "0px" }}/>
+                <Search style={{ width: "30px", marginLeft: "10px" }} />
+            </ModalButtons>
+            <LineHor style={{ width: "90%" }} />
             <DialogUsers>
               <DialogItem>
                 <Veronika style={{ width: "50px" }} />
@@ -69,4 +67,4 @@ const ChatMobilDialogs = () => {
   );
 };
 
-export default ChatMobilDialogs;
+export default ChatMobilSearchChat;

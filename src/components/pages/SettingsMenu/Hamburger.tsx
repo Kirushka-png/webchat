@@ -14,7 +14,7 @@ export const StyledHamburger = styled.button<{ open: boolean }>`
   align-items:center;
   border: none;
   cursor: pointer;
-  @media (max-width:1000px) {
+  @media (max-width:999px) {
     margin:20px;
     margin-right:0px;
     } 

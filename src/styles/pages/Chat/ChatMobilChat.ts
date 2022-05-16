@@ -223,3 +223,27 @@ export const ModalSettings = styled.div`
     gap:10px;
     width: 30%;
 `
+export const ImagesCont = styled(ModalBody)`
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-content:flex-start;
+    row-gap:10px;
+    column-gap:10px;
+    height:80%;
+    flex-wrap:wrap;
+    @media (max-width:800px) {
+        row-gap:5px;
+        column-gap:5px;
+    }
+`
+
+export const Images = styled.div`
+    height:30%;
+    width: 30%;
+    align-self:flex-start;
+    background-color: red;
+    @media (max-width:800px) {
+        width: 48%; 
+    }
+`
