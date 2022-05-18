@@ -1,7 +1,7 @@
 import ChatDesktop from "components/pages/Chat/ChatDesktop";
-import ChatMobilChat from "components/pages/Chat/ChatMobilChat";
 import { useMediaQuery } from "react-responsive";
 import { ModalWrapper } from "../../../styles/pages/Chat/Chat";
+import ChatMobilDialogs from "./ChatMobilDialogs";
 
 const Chat = () => {
   const isDesktop = useMediaQuery({
