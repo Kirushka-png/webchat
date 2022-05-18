@@ -59,6 +59,28 @@ class UserController {
             next(error)
         }
     }
+
+    async getMessages(req, res, next) {
+        try {
+            res.setHeader("Content-Type", "text/event-stream")
+            return res.json("Hello")
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getChats(req, res, next) {
+        try {
+            res.setHeader("Content-Type", "text/event-stream")
+            const { refreshToken } = req.cookies
+            const chats = await userService.getUserChats(refreshToken)
+
+            return res.json(chats)
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }
 
 export const userController = new UserController();
