@@ -13,7 +13,7 @@ export const ModalWrapper = styled.div`
 export const ModalHeader = styled.div`
     display:flex;
     flex-direction:row;
-    width: 90%;
+    width: 100%;
     gap:10px;
     height:70px;
     justify-content: center;
