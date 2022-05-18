@@ -1,21 +1,21 @@
-import Cookies from 'codebase/Cookies';
-import Login from 'components/pages/Login/Login';
+import Chat from 'components/pages/Chat/Chat';
 import ChatDesktop from 'components/pages/Chat/ChatDesktop';
 import ChatDesktopSearch from 'components/pages/Chat/ChatDesktopSearch';
-import Chat from 'components/pages/Chat/Chat';
-import Registration from 'components/pages/Login/Registration';
-import Modal from 'components/pages/Login/RegistrationModal';
-import ModalDelete from 'components/pages/Chat/DeleteModal';
-import ModalClear from 'components/pages/Chat/ClearModal';
-import Main from 'components/pages/Main/Main';
-import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
 import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
 import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
-import { useEffect, useState, useContext } from 'react';
+import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
+import ModalClear from 'components/pages/Chat/ClearModal';
+import ModalDelete from 'components/pages/Chat/DeleteModal';
+import Login from 'components/pages/Login/Login';
+import Registration from 'components/pages/Login/Registration';
+import Modal from 'components/pages/Login/RegistrationModal';
+import Main from 'components/pages/Main/Main';
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
+import { useContext, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
-import { Context } from 'index';
-import { observer } from 'mobx-react-lite'
+
 //<Route path="/main/diagnostics">
 //<Diagnostics />
 // </Route>
@@ -37,10 +37,10 @@ const App = () => {
 
   useEffect(() => {
     if(localStorage.getItem('token')){
-      store.checkAuth()
+      store.checkAuth().then((sse) => {
+      })
     }
   }, [])
-  
 
   return (
     <Htmlcontainer>

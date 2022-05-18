@@ -1,10 +1,9 @@
-import { IUser } from "codebase/models/IUser";
-import AuthService from "codebase/services/AuthService";
-import { makeAutoObservable } from 'mobx'
 import axios from "axios";
-import { AuthResponse } from "codebase/models/response/AuthResponse";
-import UserService from "codebase/services/UserService"
 import { API_URL } from "codebase/http";
+import { IUser } from "codebase/models/IUser";
+import { AuthResponse } from "codebase/models/response/AuthResponse";
+import AuthService from "codebase/services/AuthService";
+import { makeAutoObservable } from 'mobx';
 
 export default class Store {
     user = {} as IUser
@@ -56,6 +55,7 @@ export default class Store {
             localStorage.removeItem('token')
             this.setAuth(false)
             this.setUser({} as IUser)
+            window.location.href = '/login'
         } catch (error) {
             console.log(error)
         }
@@ -65,10 +65,10 @@ export default class Store {
         this.setLoading(true)
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
-            console.log(response)
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            return new EventSource(`${API_URL}/chats`, {withCredentials: true})
         } catch (error) {
             console.log(error)
         } finally{

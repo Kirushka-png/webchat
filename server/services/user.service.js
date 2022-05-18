@@ -9,9 +9,8 @@ import { tokenService } from "./token.service.js"
 class UserService {
 
     async defaultResponse(user) {
-        console.log(user)
         const userDTO = new UserDTO(user);
-        console.log(userDTO)
+
         const tokens = tokenService.generateTokens({...userDTO })
 
         await tokenService.saveToken(userDTO.id, tokens.refreshToken)
@@ -74,6 +73,13 @@ class UserService {
         const users = await db.models.userModel.findAll()
         return users.map((user) => new UserDTO(user))
     }
+
+    async getUserChats(refreshToken) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const chats = await db.models.chatUserModel.findAll({ where: { userID: userData.id } })
+        return chats
+    }
+
 }
 
 export const userService = new UserService()
