@@ -9,6 +9,7 @@ export default class Store {
     user = {} as IUser
     isAuth = false
     isLoading = false
+    sse = new EventSource('')
 
     constructor(){
         makeAutoObservable(this)
@@ -68,7 +69,7 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
-            return new EventSource(`${API_URL}/chats`, {withCredentials: true})
+            this.sse = new EventSource(`${API_URL}/sse`, {withCredentials: true})
         } catch (error) {
             console.log(error)
         } finally{

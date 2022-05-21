@@ -1,4 +1,5 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
+import { API_URL } from 'codebase/http/index';
 import { IUser } from "codebase/models/IUser";
 import UserService from 'codebase/services/UserService';
 import { MenuItem } from "components/pages/Menu/Menu";
@@ -27,8 +28,6 @@ import {
   ModalWrapper, SmsInput
 } from "../../../styles/pages/Chat/Chat";
 import UserCard from './userCard/UserCard';
-
-
 const ChatMobilDesktop = () => {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1000px)",
@@ -51,7 +50,13 @@ const ChatMobilDesktop = () => {
     }
 }
   useEffect(() => {
-    getUsers()
+    
+    const sse = new EventSource(`${API_URL}/messages`, { withCredentials: true })
+    sse.addEventListener('message', message => {
+      console.log(message)
+    });
+    return () => { sse.close() }
+
   }, [])
 
   return (

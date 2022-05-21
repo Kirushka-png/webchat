@@ -1,6 +1,6 @@
 import Store from 'codebase/store/store';
 import React, { createContext } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
@@ -15,16 +15,17 @@ export const Context = createContext<IStore>(({
   store
 }))
 
+store.checkAuth()
 
-ReactDOM.render(
+
+createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <React.StrictMode>
       <Context.Provider value={{ store }}>
         <App />
       </Context.Provider>
     </React.StrictMode>
-  </BrowserRouter>,
-  document.getElementById('root')
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

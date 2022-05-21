@@ -16,10 +16,9 @@ import Modal from 'components/pages/Login/RegistrationModal';
 import Main from 'components/pages/Main/Main';
 import { Context } from 'index';
 import { observer } from 'mobx-react-lite';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
-
 //<Route path="/main/diagnostics">
 //<Diagnostics />
 // </Route>
@@ -39,12 +38,6 @@ const App = () => {
   const [userData, setUserData] = useState<IUserData | null>(null)
   const { store } = useContext(Context)
 
-  useEffect(() => {
-    if(localStorage.getItem('token')){
-      store.checkAuth().then((sse) => {
-      })
-    }
-  }, [])
 
   return (
     <Htmlcontainer>
@@ -75,6 +68,7 @@ const App = () => {
               <Route path="/reg" element={<Navigate to="/chat" replace />} />
               <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
               <Route path="chat" element={<Chat />} />
+              <Route path="chat/:teamId" element={<ChatDesktop />} />
             </>
         }
       </Routes>

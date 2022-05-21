@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import { ChatDTO } from '../dtos/chat.dto.js'
 import { UserDTO } from "../dtos/user.dto.js"
 import { ApiError } from '../exceptions/api.error.js'
 import { db } from '../model/index.js'
@@ -26,7 +27,7 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 3)
         const user = await db.models.userModel.create({ name, login, password: hashPassword })
 
-        return this.defaultResponse(user)
+        return await this.defaultResponse(user)
     }
 
     async login(login, password) {
@@ -40,7 +41,7 @@ class UserService {
             throw ApiError.BadRequest(`Incorrect password`)
         }
 
-        return this.defaultResponse(user)
+        return await this.defaultResponse(user)
     }
     async logout(refreshToken) {
         const token = await tokenService.removeToken(refreshToken)
@@ -58,7 +59,7 @@ class UserService {
 
         const user = await db.models.userModel.findByPk(userData.id)
 
-        return this.defaultResponse(user)
+        return await this.defaultResponse(user)
     }
 
     async changeAvatar(accessToken, image) {
@@ -66,7 +67,7 @@ class UserService {
 
         await db.models.userModel.update({ image: image.filename }, { where: { id: userData.id } })
 
-        return this.defaultResponse(userData)
+        return await this.defaultResponse(userData)
     }
 
     async getAllUsers() {
@@ -77,7 +78,12 @@ class UserService {
     async getUserChats(refreshToken) {
         const userData = tokenService.validateRefreshToken(refreshToken);
         const chats = await db.models.chatUserModel.findAll({ where: { userID: userData.id } })
-        return chats
+        let dialogs = []
+        for (const chat of chats) {
+            const dialog = await db.models.chatModel.findOne({ where: { id: chat.chatID } })
+            dialogs.push(new ChatDTO(dialog))
+        }
+        return dialogs
     }
 
 }

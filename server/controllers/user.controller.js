@@ -1,6 +1,10 @@
+import _ from 'lodash';
 import { userService } from "../services/user.service.js";
 
 class UserController {
+
+    userID
+
     async registration(req, res, next) {
         try {
             const { name, login, password } = req.body
@@ -69,25 +73,30 @@ class UserController {
         }
     }
 
-    async getChats(req, res, next) {
+    async connectSse(req, res, next) {
         try {
-            res.setHeader("Content-Type", "text/event-stream")
-            const { refreshToken } = req.cookies
-            const chats = await userService.getUserChats(refreshToken)
+            res.set({
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'text/event-stream',
+                'Connection': 'keep-alive'
+            });
+            res.flushHeaders();
 
-            return res.json(chats)
-        } catch (error) {
-            next(error)
-        }
-    }
+            res.write('retry: 10000\n\n');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            let prefChats = []
+            while (true) {
+                const { refreshToken } = req.cookies
+                const chats = await userService.getUserChats(refreshToken);
+                if (!_.isEqual(chats, prefChats)) {
+                    prefChats = chats
+                    res.write(`event: getChats\n`)
+                    res.write(`data: ${JSON.stringify(chats)}\n\n`);
+                }
 
-    async getMessages(req, res, next) {
-        try {
-            res.setHeader("Content-Type", "text/event-stream")
-            const { refreshToken } = req.cookies
-            const chats = await userService.getUserChats(refreshToken)
+                await new Promise(resolve => setTimeout(resolve, 5000));
 
-            return res.json(chats)
+            }
         } catch (error) {
             next(error)
         }

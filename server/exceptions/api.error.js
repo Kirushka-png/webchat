@@ -8,6 +8,10 @@ export class ApiError extends Error {
         this.errors = errors
     }
 
+    static AccessDenied() {
+        return new ApiError(402, 'User access denied');
+    }
+
     static UnauthorizedError() {
         return new ApiError(401, 'User not authorized');
     }

@@ -1,8 +1,7 @@
-import ChatDesktop from "components/pages/Chat/ChatDesktop";
 import { useMediaQuery } from "react-responsive";
 import { ModalWrapper } from "../../../styles/pages/Chat/Chat";
+import ChatDeskDialogs from './ChatDeskDialogs';
 import ChatMobilDialogs from "./ChatMobilDialogs";
-
 const Chat = () => {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1000px)",
@@ -10,7 +9,7 @@ const Chat = () => {
 
   return (
     <ModalWrapper>
-      {isDesktop ? <ChatDesktop/> : <ChatMobilDialogs/>}
+      {isDesktop ? <ChatDeskDialogs/> : <ChatMobilDialogs/>}
     </ModalWrapper>
   );
 };
