@@ -45,7 +45,7 @@ const ChatMobilDialogsSearch = () => {
               {!isDesktop1 ? (
                 <SmsInput placeholder="Поиск" />
               ) : (
-                <SmsInput placeholder="Поиск по истории сообщений" />
+                <SmsInput placeholder="Поиск по диалогам" />
               )}
               {!isDesktop1 ? (
                 <Search style={{ width: "30px", marginLeft: "10px" }} />
