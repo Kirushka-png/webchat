@@ -18,7 +18,7 @@ export const ModalHeader = styled.div`
     height:70px;
     justify-content: center;
     align-items:center;
-    padding:20px;   
+    padding:20px; 
 `
 
 export const ModalName = styled.div`
@@ -70,7 +70,7 @@ export const ModalContainer = styled.div`
     }
 `
 
-export const ModalText = styled.text`
+export const ModalText = styled.p`
     font-size: 24px;
     text-align:center;
     @media (max-width:800px) {
@@ -78,7 +78,7 @@ export const ModalText = styled.text`
         height:15px;
     }   
 `
-export const ModalMiniText = styled.text`
+export const ModalMiniText = styled.p`
     font-size: 12px;  
     width: 50%; 
     text-align:center; 

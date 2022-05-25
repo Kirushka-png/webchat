@@ -14,12 +14,14 @@ import Hamburger from "components/pages/Menu/Hamburger";
 
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
+  left:12%;
+  top: 20%;
   position: fixed;
   width:400px;
   height:300px;
   border-radius: 18px;
   background-color: #5496FF;
-  padding-top: 70px;
+  padding-top: 10px;
   flex-direction: column;
   display: ${({ open }) => (open ? "flex" : "none")}; 
 
@@ -28,12 +30,21 @@ const StyledMenu = styled.nav<{ open: boolean }>`
     top: 5%;
     width: 80%;
     height:270px;
-    @media (min-height:950px) {        
-    top:10%;
-    width:90%;     
-    right:5%;
+
   } 
-  } 
+  @media (min-width:1500px) {       
+    left:17%;
+    @media (max-height:950px) {        
+    left:12%;
+  }
+  }
+
+  @media (max-width:1200px) {       
+    left:7%;
+    @media (max-height:950px) {        
+    left:12%;
+  }
+  }
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -47,7 +58,7 @@ const StyledLink = styled(Link)`
   @media (max-width:998px) {
     font-size: 16px;
     padding: 10px 5%;
-  }   
+  }      
 `;
 const StyledLinkTop = styled(StyledLink)`
   padding-top:30px;

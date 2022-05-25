@@ -40,7 +40,7 @@ const ChatMobilDialogs = () => {
                 <ModalSettings style={{ marginLeft: "0", width: "32px" }}>
                   <MenuItemSettings />
                 </ModalSettings>
-                <ModalText style={{width: "100px",fontSize: "24px",height: "50px",marginTop: "auto",textAlign: "start",marginRight: "auto"}}>
+                <ModalText style={{width: "100px",fontSize: "24px",height: "40px",marginRight: "auto"}}>
                   Чаты
                 </ModalText>
                 <Search style={{ marginLeft: "7%", marginRight: "10px" }} />

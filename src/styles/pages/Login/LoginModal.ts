@@ -45,13 +45,13 @@ export const ModalContainer = styled.div`
     }
 `
 
-export const ModalText = styled.text`
+export const ModalText = styled.p`
     font-size: 30px;
     @media (max-width:900px) {
         font-size: 20px;
     }   
 `
-export const ModalMiniText = styled.text`
+export const ModalMiniText = styled.p`
     font-size: 16px;  
     width: 50%; 
     text-align:center; 

@@ -130,7 +130,7 @@ export const ShowIcon = styled(Show)`
     top: 11px;
     stroke: #969696;
 `
-export const LoginText = styled.text`
+export const LoginText = styled.p`
     font-size: 40px;
     font-weight:600;
     margin-left:10%;
@@ -140,7 +140,7 @@ export const LoginText = styled.text`
         font-size: 30px;
     }
 `
-export const LoginRegistrText = styled.text`
+export const LoginRegistrText = styled.p`
     font-size: 18px;    
     @media (max-width:800px) {
         font-size: 14px; 

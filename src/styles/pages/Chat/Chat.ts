@@ -156,14 +156,14 @@ export const ModalContainer = styled.div`
     }
 `
 
-export const ModalText = styled.text`
+export const ModalText = styled.p`
     font-size: 24px;
     @media (max-width:1200px) {
         font-size: 16px;
         height:15px;
     }   
 `
-export const ModalMiniText = styled.text`
+export const ModalMiniText = styled.p`
     font-size: 12px;  
     width: 50%; 
     text-align:center; 

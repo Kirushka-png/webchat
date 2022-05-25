@@ -33,7 +33,7 @@ const ChatAttachments = () => {
               <ModalName
                 style={{ width: "90%", marginRight: "0", marginLeft: "10%" }}
               >
-                <ModalText>Вложения</ModalText>
+                <ModalText style={{ margin: "0px"}}>Вложения</ModalText>
               </ModalName>
               <ModalSettings style={{ width: "10%", marginLeft: "0" }}>
                 <Close style={{ width: "30px" }}/>

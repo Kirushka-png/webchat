@@ -14,7 +14,7 @@ export const StyledHamburger = styled.button<{ open: boolean }>`
   align-items:center;
   border: none;
   cursor: pointer;
-  @media (max-width:1000px) {
+  @media (max-width:998px) {
     margin:20px;
     margin-right:0px;
     } 
@@ -25,9 +25,15 @@ export const StyledHamburger = styled.button<{ open: boolean }>`
     height: 0.15rem;
     border-radius: 10px;
     opacity: ${({ open }) =>
+      open ? '0.2' : '0.2'};
+    background-color: ${({ open }) =>
+      open ? 'black' : 'black'};
+      @media (max-width:998px) {
+        opacity: ${({ open }) =>
       open ? '1' : '0.2'};
     background-color: ${({ open }) =>
       open ? 'white' : 'black'};
+    } 
   }
 `;
  

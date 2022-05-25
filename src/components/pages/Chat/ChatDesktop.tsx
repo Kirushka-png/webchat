@@ -37,13 +37,14 @@ import {
   DialogUsers,
 } from "../../../styles/pages/Chat/Chat";
 
-import { MenuItem } from "components/pages/Menu/Menu";
+import { MenuItem } from "components/pages/Menu/MenuChat";
 import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
 import { Context } from 'index';
+import { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 
 const ChatMobilDesktop = () => {
   const isDesktop = useMediaQuery({
-    query: "(min-width: 1000px)",
+    query: "(min-width: 998px)",
   });
 
   const isDesktop1 = useMediaQuery({
@@ -73,12 +74,13 @@ const ChatMobilDesktop = () => {
           <ModalContainer>
             <Chat>
               <ModalHeader>
-                <ModalMenu>
-                  <MenuItem />
+              <ArrowLeft style={{ width: "50px", marginLeft: "40px", marginRight: "-40px" }} />
+                <ModalMenu>     
+                  <MenuItem/>
                 </ModalMenu>
                 <Veronika style={{ width: "50px" }} />
                 <ModalName>
-                  <ModalText>Вероника</ModalText>
+                  <ModalText style={{ margin: "0px" }}>Вероника</ModalText>
                   <Online style={{ marginLeft: "-10px" }} />
                 </ModalName>
               </ModalHeader>

@@ -5,12 +5,12 @@ import { useMediaQuery } from "react-responsive";
 import {ModalWrapper} from "../../../styles/pages/Chat/Chat";
 const Chat = () => {
   const isDesktop = useMediaQuery({
-    query: "(min-width: 1000px)",
+    query: "(min-width: 998px)",
   });
 
   return (
     <ModalWrapper>
-      {isDesktop ? <ChatDesktop/> : <ChatMobilDialogs/>}
+      {isDesktop ? <ChatDesktop/> : <ChatMobilChat/>}
     </ModalWrapper>
   );
 };

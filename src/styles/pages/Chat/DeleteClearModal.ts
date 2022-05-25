@@ -81,13 +81,13 @@ export const DropContainerImage = styled.div<DropContainerProps>`
     background-position:center;
 `
 
-export const ModalText = styled.text`
+export const ModalText = styled.p`
     font-size: 30px;
     @media (max-width:900px) {
         font-size: 20px;
     }   
 `
-export const ModalMiniText = styled.text`
+export const ModalMiniText = styled.p`
     font-size: 20px;  
     width: 90%; 
     text-align:center; 

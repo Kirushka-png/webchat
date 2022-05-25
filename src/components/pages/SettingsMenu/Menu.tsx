@@ -12,26 +12,45 @@ import Hamburger from "components/pages/SettingsMenu/Hamburger";
 import {ModalText} from "../../../styles/pages/Chat/Chat";
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
-  right:15%;
+  right:17%;
+  top: 20%;
   position: fixed;
-  width:24.5%;
+  width:21%;
   height:200px;
   border-radius: 18px;
   background-color: #5496FF;
-  padding-top: 70px;
+  padding-top: 10px;
   flex-direction: column;
   display: ${({ open }) => (open ? "flex" : "none")};
-  @media (max-width:1500px) {       
-    right:10%;
-    width:28%;
-  } 
 
-  @media (max-width:1000px) {       
+  @media (max-width:1500px) {       
+    right:12%;
+    width:24%;
+
+  } 
+  @media (max-height:950px) {        
+    right:12%;
+  }
+  @media (max-width:1200px) {       
+    right:7%;
+    width:28%;
+    @media (max-height:950px) {        
+    right:12%;
+    width:24%;
+  }
+  }
+  @media (max-width:998px) { 
+    padding-top: 70px;      
     right:10%;
     top: 5%;
     width:31.5%;
     width: 80%;
     height:310px;
+    @media (min-height:950px) {        
+    top:10%;
+    width:90%;     
+    right:5%;
+  } 
   }  
 `;
 const StyledLink = styled(Link)`
@@ -43,14 +62,14 @@ const StyledLink = styled(Link)`
   align-items:center;
   height:30px;
   text-decoration: none;
-  @media (max-width:1000px) {
+  @media (max-width:998px) {
     font-size: 16px;
     padding: 10px 5%;
   }  
 `;
 const StyledLinkTop = styled(StyledLink)`
   padding-top:30px;
-  @media (max-width:1000px) {
+  @media (max-width:998px) {
     padding-top:10px;
   } 
 `;
@@ -72,7 +91,7 @@ export const MenuItemSettings = () => {
 
   const { store } = useContext(Context)
   const isDesktop1 = useMediaQuery({
-    query: "(min-width: 1000px)",
+    query: "(min-width: 998px)",
   });
   return (
     <div>

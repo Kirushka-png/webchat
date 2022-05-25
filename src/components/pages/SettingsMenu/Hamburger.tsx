@@ -14,16 +14,22 @@ export const StyledHamburger = styled.button<{ open: boolean }>`
   align-items:center;
   border: none;
   cursor: pointer;
-  @media (max-width:999px) {
+  @media (max-width:998px) {
     margin:20px;
     margin-right:0px;
     } 
     svg {
       position: relative;
     fill: ${({ open }) =>
+      open ? 'black' : 'black'};
+          opacity: ${({ open }) =>
+      open ? '0.2' : '0.2'};
+      @media (max-width:998px) {
+        fill: ${({ open }) =>
       open ? 'white' : 'black'};
           opacity: ${({ open }) =>
       open ? '1' : '0.2'};
+    } 
   }
 
 

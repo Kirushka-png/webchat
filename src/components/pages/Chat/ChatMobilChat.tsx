@@ -34,7 +34,7 @@ import  { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 const ChatMobilChat = () => {
 
     const isDesktop = useMediaQuery({
-        query: "(min-width: 1000px)"
+        query: "(min-width: 998px)"
       });
 
       const isDesktop1 = useMediaQuery({
@@ -53,7 +53,7 @@ const ChatMobilChat = () => {
               </ModalMenu>
               <Veronika style={{ width: "40px",height:"40px" }} />
               <ModalName>
-                <ModalText>Вероника</ModalText>
+                <ModalText  style={{ margin: "0px" }}>Вероника</ModalText>
                 <Online style={{ marginLeft: "-10px" }} />
               </ModalName>
               <ModalSettings >    

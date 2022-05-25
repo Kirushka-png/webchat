@@ -11,7 +11,6 @@ import Main from 'components/pages/Main/Main';
 import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
 import ChatMobilSearchChat from 'components/pages/Chat/ChatMobilSearchChat';
 import ChatDeskDialogs from 'components/pages/Chat/ChatDeskDialogs';
-import ChatMobilDialogsSearch from 'components/pages/Chat/ChatMobilDialogsSearch';
 import ChatMobilChatDrop from 'components/pages/Chat/ChatMobilChatDrop';
 import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
 import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
@@ -62,7 +61,6 @@ const App = () => {
             <Route path="chatd" element={<ChatDesktop />} />
             <Route path="chatdsh" element={<ChatDesktopSearch />} />
             <Route path="chatmd" element={<ChatMobilDialogs />} />
-            <Route path="chatmdsh" element={<ChatMobilDialogsSearch />} />
             <Route path="chatmsh" element={<ChatMobilSearchChat />} />
             <Route path="chatdd" element={<ChatDeskDialogs />} />
             <Route path="chatmch" element={<ChatMobilChat />} />

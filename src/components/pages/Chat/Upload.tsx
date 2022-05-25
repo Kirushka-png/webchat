@@ -28,7 +28,7 @@ export function MyDropzone() {
     <ModalWrapper>
       <ModalCont>
         <ModalContainerDrop>
-          <ModalMiniText>
+          <ModalMiniText style={{"margin":"0px"}}>
             Вы можете загрузить изображение в формате JPG или PNG
           </ModalMiniText>
           <Buttons>
