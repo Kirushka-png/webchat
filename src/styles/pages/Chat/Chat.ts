@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom'
 
 export const ModalWrapper = styled.div`
     display:flex;
@@ -24,7 +23,7 @@ export const ModalHeader = styled.div`
 `
 export const ModalBody = styled.div`
     display:flex;
-    flex-direction:column;
+    flex-direction:column-reverse;
     width: 90%;
     gap:20px;
     //justify-content: flex-end;
@@ -57,11 +56,11 @@ export const ModalBody = styled.div`
 `
 export const BodySmsBot = styled.div`
     display:flex;
-    flex-direction:column;
     max-width:90%;
     font-size:18px;
     justify-content: center;
     align-items:flex-start;
+    gap: 5px;
     padding:10px;
     background-color: #F6F6F9;
     border-radius: 15px 15px 15px 0px;
@@ -71,8 +70,8 @@ export const BodySmsBot = styled.div`
 `
 export const BodySmsButton = styled.div`
     display:flex;
-    flex-direction:column;
     max-width:90%;
+    gap: 5px;
     font-size:18px;
     justify-content: center;
     align-items:flex-start;
@@ -204,6 +203,13 @@ export const Dialogs = styled.div`
     justify-content: flex-start;
     align-items:center;
     display: flex;
+`
+export const DateContainer = styled.div`
+    height: 100%;
+    text-align: end;
+    align-items: end;
+    display: flex;
+    font-size:10px;
 `
 export const Chat = styled.div`
     display:flex;

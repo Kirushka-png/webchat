@@ -90,6 +90,11 @@ export const ModalCont = styled.div`
     align-items:center;
     display: flex;
 `
+export const DialogWrapper = styled.div`
+    width: 100%;
+    text-decoration: none;
+    color: black;
+`
 export const DialogLink = styled(Link)`
     width: 100%;
     text-decoration: none;

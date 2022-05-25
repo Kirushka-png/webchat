@@ -3,8 +3,6 @@ import { userService } from "../services/user.service.js";
 
 class UserController {
 
-    userID
-
     async registration(req, res, next) {
         try {
             const { name, login, password } = req.body

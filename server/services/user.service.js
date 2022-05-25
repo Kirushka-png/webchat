@@ -1,4 +1,6 @@
 import bcrypt from 'bcrypt'
+import _ from 'lodash'
+import { Op } from 'sequelize'
 import { ChatDTO } from '../dtos/chat.dto.js'
 import { UserDTO } from "../dtos/user.dto.js"
 import { ApiError } from '../exceptions/api.error.js'
@@ -70,8 +72,19 @@ class UserService {
         return await this.defaultResponse(userData)
     }
 
-    async getAllUsers() {
-        const users = await db.models.userModel.findAll()
+    async getAllUsers(refreshToken, text) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        let users = await db.models.userModel.findAll()
+        const userchats = await db.models.chatUserModel.findAll({ attributes: ['chatID'], where: { userID: userData.id } })
+        const temparr = userchats.map((chat) => chat.userID)
+        const chatsusers = await db.models.chatUserModel.findAll({
+            attributes: ['userID'],
+            where: {
+                [Op.or]: temparr
+            }
+        })
+        _.remove(users, (user) => user.id == userData.id || _.includes(chatsusers, (chat) => chat.userID))
+        users = _.filter(users, (user) => user.login.toLocaleLowerCase().includes(text.toLocaleLowerCase()) || user.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()))
         return users.map((user) => new UserDTO(user))
     }
 

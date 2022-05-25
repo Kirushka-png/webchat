@@ -7,6 +7,7 @@ export class MessageDTO {
     status
     wasRedacted
     wasForwarded
+    createdAt
 
     constructor(model) {
         this.id = model.id
@@ -17,5 +18,6 @@ export class MessageDTO {
         this.status = model.status
         this.wasRedacted = model.wasRedacted
         this.wasForwarded = model.wasForwarded
+        this.createdAt = model.createdAt
     }
 }

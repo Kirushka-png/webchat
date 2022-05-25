@@ -15,8 +15,8 @@ export const Context = createContext<IStore>(({
   store
 }))
 
-store.checkAuth()
 
+store.checkAuth()
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>

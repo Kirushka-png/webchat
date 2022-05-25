@@ -6,6 +6,6 @@ export interface IMessage{
     status: boolean,
     wasRedacted: boolean,
     wasForwarded: boolean,
-    createdAt: Date
+    createdAt: string
 }
 export default IMessage

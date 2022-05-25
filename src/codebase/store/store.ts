@@ -3,13 +3,15 @@ import { API_URL } from "codebase/http";
 import { IUser } from "codebase/models/IUser";
 import { AuthResponse } from "codebase/models/response/AuthResponse";
 import AuthService from "codebase/services/AuthService";
+import ChatService from "codebase/services/ChatService";
+import UserService from "codebase/services/UserService";
 import { makeAutoObservable } from 'mobx';
-
+import { io } from "socket.io-client";
 export default class Store {
     user = {} as IUser
     isAuth = false
     isLoading = false
-    sse = new EventSource('')
+    io = io(`http://localhost:5000`, {withCredentials: true})
 
     constructor(){
         makeAutoObservable(this)
@@ -30,10 +32,10 @@ export default class Store {
     async login(login: string, password: string){
         try {
             const response = await AuthService.login(login, password)
-            console.log(response)
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            this.io = io(`http://localhost:5000`, {withCredentials: true})
         } catch (error) {
             console.log(error)
         }
@@ -45,6 +47,7 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            this.io = io(`http://localhost:5000`, {withCredentials: true})
         } catch (error) {
             console.log(error)
         }
@@ -69,12 +72,43 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
-            this.sse = new EventSource(`${API_URL}/sse`, {withCredentials: true})
+            setTimeout(() => {}, 500)
         } catch (error) {
             console.log(error)
         } finally{
             this.setLoading(false)
         }
     }
+    
+    async getAllUsers(text: string){
+        try {
+            await UserService.getAllUsers(text)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+    async getChats(){
+        try {
+            await UserService.getChats()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getMessages(id: number){
+        try {
+            await UserService.getMessages(id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async createNewChat(userID: number){
+        try {
+            return await ChatService.createNewChat(userID)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

@@ -1,22 +1,6 @@
-import EventEmitter from "events";
 import { chatService } from "../services/chat.service.js";
+import { tokenService } from "../services/token.service.js";
 
-
-export class SseConnection extends EventEmitter{
-
-    constructor(){
-        super()
-    }
-
-    init(req, res){
-        res.set({
-            'Cache-Control': 'no-cache',
-            'Content-Type': 'text/event-stream',
-            'Connection': 'keep-alive'
-        });
-    }
-
-}
 
 
 class ChatController {
@@ -60,6 +44,15 @@ class ChatController {
         }
     }
 
+    async createChat(refreshToken, userID) {
+        try {
+            const userData = tokenService.validateRefreshToken(refreshToken);
+            const chat = await chatService.createNewChat(userData, userID)
+            return chat
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
 }

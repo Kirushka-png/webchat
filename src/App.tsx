@@ -68,7 +68,7 @@ const App = () => {
               <Route path="/reg" element={<Navigate to="/chat" replace />} />
               <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
               <Route path="chat" element={<Chat />} />
-              <Route path="chat/:teamId" element={<ChatDesktop />} />
+              <Route path="chat/:id" element={<ChatDesktop />} />
             </>
         }
       </Routes>
