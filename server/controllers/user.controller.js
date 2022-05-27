@@ -52,6 +52,24 @@ class UserController {
             next(error)
         }
     }
+    async uploadFile(req, res, next) {
+        try {
+            const user = await userService.uploadFile(req.headers.authorization, req.file)
+            return res.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async changeName(req, res, next) {
+        try {
+            const { newname } = req.body
+            const user = await userService.changeName(req.headers.authorization, newname)
+            return res.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
 
     async changeAvatar(req, res, next) {
         try {

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { MessageDTO } from '../dtos/message.dto.js';
 import { UserDTO } from '../dtos/user.dto.js';
 import { ApiError } from '../exceptions/api.error.js';
@@ -38,11 +39,22 @@ class ChatService {
         }
     }
 
+    async deleteMessage(refreshToken, chatID, messageID) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        if (chatID && await this.checkUserInChat(userData.id, chatID)) {
+            let message = await db.models.messageModel.destroy({ where: { id: messageID } })
+            return message
+        } else {
+            return ApiError.AccessDenied()
+        }
+    }
+
     async getMessages(refreshToken, chatID) {
         const userData = tokenService.validateRefreshToken(refreshToken);
         if (chatID && await this.checkUserInChat(userData.id, chatID)) {
-            const messages = await db.models.messageModel.findAll({ where: { chatID: chatID } })
-            messages.map((message) => new MessageDTO(message))
+            let messages = await db.models.messageModel.findAll({ where: { chatID: chatID } })
+            messages = messages.map((message) => new MessageDTO(message))
+            messages = _.filter(messages, (message) => message.deletedFor == null || !message.deletedFor.contains(userData.id))
             return messages
         } else {
             return ApiError.AccessDenied()
@@ -58,6 +70,17 @@ class ChatService {
             return ApiError.AccessDenied()
         }
     }
+
+    async editMessage(refreshToken, messageID, chatID, text, files) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        if (await this.checkUserInChat(userData.id, chatID)) {
+            const message = await db.models.messageModel.update({ text, file: files, wasRedacted: true }, { where: { id: messageID } })
+            return new MessageDTO(message)
+        } else {
+            return ApiError.AccessDenied()
+        }
+    }
+
 }
 
 export const chatService = new ChatService()

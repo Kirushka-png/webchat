@@ -152,9 +152,11 @@ export const DialogUsers = styled.div`
 `
 
 export const DialogItem = styled.div`
-    width: 100%;
+    width: calc(100% - 10px);
     flex-direction:row;
     gap: 30px;
+    border-radius: 10px;
+    padding:5px;
     justify-content: flex-start;
     align-items:center;
     cursor: pointer;

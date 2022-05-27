@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import _ from 'lodash'
 import { Op } from 'sequelize'
 import { ChatDTO } from '../dtos/chat.dto.js'
+import { FileDTO } from '../dtos/file.dto.js'
 import { UserDTO } from "../dtos/user.dto.js"
 import { ApiError } from '../exceptions/api.error.js'
 import { db } from '../model/index.js'
@@ -62,6 +63,22 @@ class UserService {
         const user = await db.models.userModel.findByPk(userData.id)
 
         return await this.defaultResponse(user)
+    }
+    async uploadFile(accessToken, file) {
+        const userData = tokenService.validateAccessToken(accessToken);
+
+        const filedata = new FileDTO(file)
+
+        return {...await this.defaultResponse(userData), ...filedata }
+
+    }
+
+    async changeName(accessToken, newname) {
+        const userData = tokenService.validateAccessToken(accessToken);
+
+        await db.models.userModel.update({ name: newname }, { where: { id: userData.id } })
+
+        return await this.defaultResponse(userData)
     }
 
     async changeAvatar(accessToken, image) {

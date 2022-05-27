@@ -1,4 +1,4 @@
-import { ReactComponent as Veronika } from "images/Chat/Veronika.svg";
+import UserImg from "images/Chat/UserImg.png";
 import {
     DialogItem, ModalText
 } from "styles/pages/Chat/ChatMobilDialogs";
@@ -11,7 +11,10 @@ export const ChatDialog = ({name}: Props) => {
 
     return (
         <DialogItem>
-            <Veronika style={{ width: "50px" }} />
+            <img
+                src={UserImg}
+                style={{ height: "50px", width: "50px" }}
+            />
             <ModalText>{name}</ModalText>
         </DialogItem>
     )

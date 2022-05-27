@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "codebase/http";
+import IMessage from "codebase/models/IMessage";
 import { IUser } from "codebase/models/IUser";
 import { AuthResponse } from "codebase/models/response/AuthResponse";
 import AuthService from "codebase/services/AuthService";
@@ -11,6 +12,10 @@ export default class Store {
     user = {} as IUser
     isAuth = false
     isLoading = false
+    editModeOn = false
+    msgEdit = {} as IMessage
+    msg = {} as IMessage
+    currentChatID = 0
     io = io(`http://localhost:5000`, {withCredentials: true})
 
     constructor(){
@@ -29,6 +34,22 @@ export default class Store {
         this.isLoading = bool
     }
 
+    setMsgEdit(text: string){
+        this.msgEdit.text = text
+    }
+
+    EditMessageMode(ChatID: number, msg: IMessage){
+        this.msgEdit = msg
+        this.msg = msg
+        this.currentChatID = ChatID
+        this.editModeOn = true
+    }
+
+    closeEditMode(){
+        this.msgEdit = {} as IMessage
+        this.msg = {} as IMessage
+        this.editModeOn = false
+    }
     async login(login: string, password: string){
         try {
             const response = await AuthService.login(login, password)

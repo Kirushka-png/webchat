@@ -5,6 +5,7 @@ export class MessageDTO {
     file
     author
     status
+    deletedFor
     wasRedacted
     wasForwarded
     createdAt
@@ -16,6 +17,7 @@ export class MessageDTO {
         this.file = model.file
         this.author = model.author
         this.status = model.status
+        this.deletedFor = model.deletedFor
         this.wasRedacted = model.wasRedacted
         this.wasForwarded = model.wasForwarded
         this.createdAt = model.createdAt

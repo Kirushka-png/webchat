@@ -20,6 +20,9 @@ export const messageModel = (sequelize, DataTypes) => {
             allowNull: false,
             default: false,
         },
+        deletedFor: {
+            type: DataTypes.STRING
+        },
         wasRedacted: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

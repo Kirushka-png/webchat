@@ -1,5 +1,34 @@
+import { ReactComponent as Pencil } from 'images/Chat/Pencil.svg';
+import { ReactComponent as Trash } from 'images/Chat/Trash.svg';
 import styled from "styled-components";
 
+
+export const EditPencil = styled(Pencil)`
+    position: absolute;
+    left: -25px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill-opacity: 0.2;
+    :hover{
+        fill-opacity: 0.5;
+        fill: #5496FF;
+    }
+`
+export const DeleteTrash = styled(Trash)`
+    position: absolute;
+    left: -50px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill-opacity: 0.2;
+    :hover{
+        fill-opacity: 0.5;
+        fill: red;
+    }
+`
 export const ModalWrapper = styled.div`
     display:flex;
     width: 100%;
@@ -56,8 +85,9 @@ export const ModalBody = styled.div`
 `
 export const BodySmsBot = styled.div`
     display:flex;
-    max-width:90%;
+    max-width:80%;
     font-size:18px;
+    position: relative;
     justify-content: center;
     align-items:flex-start;
     gap: 5px;
@@ -70,7 +100,8 @@ export const BodySmsBot = styled.div`
 `
 export const BodySmsButton = styled.div`
     display:flex;
-    max-width:90%;
+    max-width:80%;
+    position: relative;
     gap: 5px;
     font-size:18px;
     justify-content: center;

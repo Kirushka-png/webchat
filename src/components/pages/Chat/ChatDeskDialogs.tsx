@@ -50,20 +50,18 @@ const ChatDeskDialogs = () => {
   useEffect(() => {
     search != '' ? getAllUsers(search) : setUsers([])
   }, [search])
-  
 
   useEffect(() => {
     store.io.on('message', message => {
       console.log(message)
     })
-    store.io.on('chats', chats =>{
-      setChats(chats)
-    })
+    store.io.on('chats', setChats)
     store.io.on('users', users =>{
       setAllUsers(users)
     })
     store.io.emit('getChats')
     return () => {
+      store.io.off('chats', setChats)
     }
   }, [])
 

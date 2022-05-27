@@ -72,11 +72,22 @@ io.on('connection', client => {
             io.to(`${chatID}`).emit('messages', JSON.stringify(messages))
         })
 
+        client.on('deleteMessage', async(chatID, messageID) => {
+            await chatService.deleteMessage(refreshToken, chatID, messageID)
+            const messages = await chatService.getMessages(refreshToken, chatID)
+            io.to(`${chatID}`).emit('messages', JSON.stringify(messages))
+        })
+
         client.on('getAllUsers', async(text) => {
             const users = await userService.getAllUsers(refreshToken, text)
             client.emit('users', JSON.stringify(users))
         })
 
+        client.on('editMessage', async(messageID, chatID, text, file) => {
+            await chatService.editMessage(refreshToken, messageID, chatID, text, file)
+            const messages = await chatService.getMessages(refreshToken, chatID)
+            io.to(`${chatID}`).emit('messages', JSON.stringify(messages))
+        })
     }
 })
 

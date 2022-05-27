@@ -112,9 +112,7 @@ router.post('/logout', userController.logout)
 router.get('/refresh', userController.refresh)
 router.get('/users', authMiddleware, userController.getUsers)
 router.post('/changeAvatar', authMiddleware, upload.single('image'), userController.changeAvatar)
-router.get('/sse', function(req, res, next) {
-
-})
+router.post('/uploadFile', authMiddleware, upload.single('file'), userController.uploadFile)
 router.get('/getChats', function(req, res) { SSE.getChats(req, res) })
 router.post('/createChat', authMiddleware, chatController.createChat)
 router.post('/getMessages', function(req, res) {})
