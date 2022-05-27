@@ -1,6 +1,5 @@
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { Link } from 'react-router-dom'
-
 export const ModalWrapper = styled.div`
     display:flex;
     width: 100%;
@@ -91,7 +90,16 @@ export const ModalCont = styled.div`
     align-items:center;
     display: flex;
 `
-
+export const DialogWrapper = styled.div`
+    width: 100%;
+    text-decoration: none;
+    color: black;
+`
+export const DialogLink = styled(Link)`
+    width: 100%;
+    text-decoration: none;
+    color: black;
+`
 export const Dialogs = styled.div`
     height: 100%;
     width: 100%;
@@ -144,10 +152,16 @@ export const DialogUsers = styled.div`
 `
 
 export const DialogItem = styled.div`
-    width: 100%;
+    width: calc(100% - 10px);
     flex-direction:row;
     gap: 30px;
+    border-radius: 10px;
+    padding:5px;
     justify-content: flex-start;
     align-items:center;
+    cursor: pointer;
     display: flex;
+    :hover{
+        background-color: #5496FF33;
+    }
 `

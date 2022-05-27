@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import { userService } from "../services/user.service.js";
 
 class UserController {
+
     async registration(req, res, next) {
         try {
             const { name, login, password } = req.body
@@ -50,6 +52,24 @@ class UserController {
             next(error)
         }
     }
+    async uploadFile(req, res, next) {
+        try {
+            const user = await userService.uploadFile(req.headers.authorization, req.file)
+            return res.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async changeName(req, res, next) {
+        try {
+            const { newname } = req.body
+            const user = await userService.changeName(req.headers.authorization, newname)
+            return res.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
 
     async changeAvatar(req, res, next) {
         try {
@@ -59,6 +79,46 @@ class UserController {
             next(error)
         }
     }
+
+    async getMessages(req, res, next) {
+        try {
+            res.setHeader("Content-Type", "text/event-stream")
+            return res.json("Hello")
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async connectSse(req, res, next) {
+        try {
+            res.set({
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'text/event-stream',
+                'Connection': 'keep-alive'
+            });
+            res.flushHeaders();
+
+            res.write('retry: 10000\n\n');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            let prefChats = []
+            while (true) {
+                const { refreshToken } = req.cookies
+                const chats = await userService.getUserChats(refreshToken);
+                if (!_.isEqual(chats, prefChats)) {
+                    prefChats = chats
+                    res.write(`event: getChats\n`)
+                    res.write(`data: ${JSON.stringify(chats)}\n\n`);
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 5000));
+
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+
 }
 
 export const userController = new UserController();

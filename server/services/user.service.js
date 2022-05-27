@@ -1,4 +1,8 @@
 import bcrypt from 'bcrypt'
+import _ from 'lodash'
+import { Op } from 'sequelize'
+import { ChatDTO } from '../dtos/chat.dto.js'
+import { FileDTO } from '../dtos/file.dto.js'
 import { UserDTO } from "../dtos/user.dto.js"
 import { ApiError } from '../exceptions/api.error.js'
 import { db } from '../model/index.js'
@@ -9,9 +13,8 @@ import { tokenService } from "./token.service.js"
 class UserService {
 
     async defaultResponse(user) {
-        console.log(user)
         const userDTO = new UserDTO(user);
-        console.log(userDTO)
+
         const tokens = tokenService.generateTokens({...userDTO })
 
         await tokenService.saveToken(userDTO.id, tokens.refreshToken)
@@ -27,7 +30,7 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 3)
         const user = await db.models.userModel.create({ name, login, password: hashPassword })
 
-        return this.defaultResponse(user)
+        return await this.defaultResponse(user)
     }
 
     async login(login, password) {
@@ -41,7 +44,7 @@ class UserService {
             throw ApiError.BadRequest(`Incorrect password`)
         }
 
-        return this.defaultResponse(user)
+        return await this.defaultResponse(user)
     }
     async logout(refreshToken) {
         const token = await tokenService.removeToken(refreshToken)
@@ -59,7 +62,23 @@ class UserService {
 
         const user = await db.models.userModel.findByPk(userData.id)
 
-        return this.defaultResponse(user)
+        return await this.defaultResponse(user)
+    }
+    async uploadFile(accessToken, file) {
+        const userData = tokenService.validateAccessToken(accessToken);
+
+        const filedata = new FileDTO(file)
+
+        return {...await this.defaultResponse(userData), ...filedata }
+
+    }
+
+    async changeName(accessToken, newname) {
+        const userData = tokenService.validateAccessToken(accessToken);
+
+        await db.models.userModel.update({ name: newname }, { where: { id: userData.id } })
+
+        return await this.defaultResponse(userData)
     }
 
     async changeAvatar(accessToken, image) {
@@ -67,13 +86,36 @@ class UserService {
 
         await db.models.userModel.update({ image: image.filename }, { where: { id: userData.id } })
 
-        return this.defaultResponse(userData)
+        return await this.defaultResponse(userData)
     }
 
-    async getAllUsers() {
-        const users = await db.models.userModel.findAll()
+    async getAllUsers(refreshToken, text) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        let users = await db.models.userModel.findAll()
+        const userchats = await db.models.chatUserModel.findAll({ attributes: ['chatID'], where: { userID: userData.id } })
+        const temparr = userchats.map((chat) => chat.userID)
+        const chatsusers = await db.models.chatUserModel.findAll({
+            attributes: ['userID'],
+            where: {
+                [Op.or]: temparr
+            }
+        })
+        _.remove(users, (user) => user.id == userData.id || _.includes(chatsusers, (chat) => chat.userID))
+        users = _.filter(users, (user) => user.login.toLocaleLowerCase().includes(text.toLocaleLowerCase()) || user.name.toLocaleLowerCase().includes(text.toLocaleLowerCase()))
         return users.map((user) => new UserDTO(user))
     }
+
+    async getUserChats(refreshToken) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const chats = await db.models.chatUserModel.findAll({ where: { userID: userData.id } })
+        let dialogs = []
+        for (const chat of chats) {
+            const dialog = await db.models.chatModel.findOne({ where: { id: chat.chatID } })
+            dialogs.push(new ChatDTO(dialog))
+        }
+        return dialogs
+    }
+
 }
 
 export const userService = new UserService()

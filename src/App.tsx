@@ -1,25 +1,24 @@
-import Cookies from 'codebase/Cookies';
-import Login from 'components/pages/Login/Login';
+import Chat from 'components/pages/Chat/Chat';
+import ChatAttachments from 'components/pages/Chat/ChatAttachments';
+import ChatDeskDialogs from 'components/pages/Chat/ChatDeskDialogs';
 import ChatDesktop from 'components/pages/Chat/ChatDesktop';
 import ChatDesktopSearch from 'components/pages/Chat/ChatDesktopSearch';
-import Chat from 'components/pages/Chat/Chat';
-import Registration from 'components/pages/Login/Registration';
-import Modal from 'components/pages/Login/RegistrationModal';
-import ModalDelete from 'components/pages/Chat/DeleteModal';
-import ModalClear from 'components/pages/Chat/ClearModal';
-import Main from 'components/pages/Main/Main';
+import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
+import ChatMobilChatDrop from 'components/pages/Chat/ChatMobilChatDrop';
+import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
 import ChatMobilDialogs from 'components/pages/Chat/ChatMobilDialogs';
 import ChatMobilSearchChat from 'components/pages/Chat/ChatMobilSearchChat';
-import ChatDeskDialogs from 'components/pages/Chat/ChatDeskDialogs';
-import ChatMobilChatDrop from 'components/pages/Chat/ChatMobilChatDrop';
-import ChatMobilChat from 'components/pages/Chat/ChatMobilChat';
-import ChatMobilChatSearch from 'components/pages/Chat/ChatMobilChatSearch';
-import ChatAttachments from 'components/pages/Chat/ChatAttachments';
-import { useEffect, useState, useContext } from 'react';
+import ModalClear from 'components/pages/Chat/ClearModal';
+import ModalDelete from 'components/pages/Chat/DeleteModal';
+import Login from 'components/pages/Login/Login';
+import Registration from 'components/pages/Login/Registration';
+import Modal from 'components/pages/Login/RegistrationModal';
+import Main from 'components/pages/Main/Main';
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
+import { useContext, useState } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
-import { Context } from 'index';
-import { observer } from 'mobx-react-lite'
 //<Route path="/main/diagnostics">
 //<Diagnostics />
 // </Route>
@@ -39,12 +38,6 @@ const App = () => {
   const [userData, setUserData] = useState<IUserData | null>(null)
   const { store } = useContext(Context)
 
-  useEffect(() => {
-    if(localStorage.getItem('token')){
-      store.checkAuth()
-    }
-  }, [])
-  
 
   return (
     <Htmlcontainer>
@@ -75,6 +68,7 @@ const App = () => {
               <Route path="/reg" element={<Navigate to="/chat" replace />} />
               <Route path="main/*" element={<Main userData={userData} onOpenChat={() => { setChatOpened(true) }} />} />
               <Route path="chat" element={<Chat />} />
+              <Route path="chat/:id" element={<ChatDesktop />} />
             </>
         }
       </Routes>

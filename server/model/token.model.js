@@ -1,4 +1,4 @@
-export const tokenModel = (sequelize, DataTypes, userModel) => {
+export const tokenModel = (sequelize, DataTypes) => {
     const Token = sequelize.define('token', {
         userID: {
             type: DataTypes.INTEGER,
