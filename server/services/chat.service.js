@@ -49,12 +49,25 @@ class ChatService {
         }
     }
 
+    async deleteMessages(refreshToken, chatID) {
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        if (chatID && await this.checkUserInChat(userData.id, chatID)) {
+            const msgs = await db.models.messageModel.findAll({where: {chatID: chatID}})
+            const messageID = msgs[msgs.lenght-1].id 
+            const chat = await db.models.chatUserModel.update({messagesFromL: messageID},{where:{chatID: chatID, userID: userData.id}})
+            return chat
+        } else {
+            return ApiError.AccessDenied()
+        }
+    }
+
     async getMessages(refreshToken, chatID) {
         const userData = tokenService.validateRefreshToken(refreshToken);
         if (chatID && await this.checkUserInChat(userData.id, chatID)) {
             let messages = await db.models.messageModel.findAll({ where: { chatID: chatID } })
+            const msgsFrom = await db.models.chatUserModel.findOne({where: {chatID: chatID, userID: userData.id}})
             messages = messages.map((message) => new MessageDTO(message))
-            messages = _.filter(messages, (message) => message.deletedFor == null || !message.deletedFor.contains(userData.id))
+            messages = _.filter(messages, (message) => message.id > msgsFrom.messagesFrom)
             return messages
         } else {
             return ApiError.AccessDenied()

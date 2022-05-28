@@ -8,6 +8,10 @@ export const chatUserModel = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        messagesFrom:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         admin: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
