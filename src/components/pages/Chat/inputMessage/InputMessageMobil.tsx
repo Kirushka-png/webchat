@@ -1,18 +1,24 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
 import { ReactComponent as Images } from "images/Chat/Images.svg";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
+import { ReactComponent as Send } from "images/Chat/Send.svg";
 import { Context } from "index";
 import _ from "lodash";
 import { observer } from 'mobx-react-lite';
 import { useContext, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useParams } from "react-router-dom";
-import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/Chat";
+import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/ChatMobilChat";
 
 interface Props{
     messagesContainer: any
 }
 
-export const InputMessage = ({ messagesContainer }: Props) => {
+export const InputMessageMobil = ({ messagesContainer }: Props) => {
+
+    const isDesktop1 = useMediaQuery({
+        query: "(min-width: 600px)"
+      });
 
     const { id } = useParams()
     const { store } = useContext(Context)
@@ -36,19 +42,25 @@ export const InputMessage = ({ messagesContainer }: Props) => {
 
     return (
         <ModalButtons>
-            <Images />
-            <Mic />
+            <Images style={{ width: "30px",height:"30px" }}/>
+            <Mic style={{ width: "30px",height:"30px" }}/>
             {store.editModeOn ?  
             <>
                 <SmsInput placeholder="Введите сообщение" value={store.msgEdit.text} onChange={(e) => { store.setMsgEdit(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, store.msgEdit.files)} />
-                <Button onClick={() => { editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, store.msgEdit.files) }}>Изменить</Button>
+                { !isDesktop1 ? 
+                <Send style={{ width: "30px",height:"30px" }} onClick={() => { editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, store.msgEdit.files) }}/> : 
+                <Button onClick={() => { editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, store.msgEdit.files) }}>Изменить</Button>} 
             </>
             :
             <>
                 <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles)} />
-                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}>Отправить</Button>
+                { !isDesktop1 ? 
+                <Send style={{ width: "30px",height:"30px" }} onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}/> : 
+                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}>Отправить</Button>}
+
             </>
             }
-        </ModalButtons>)
+        </ModalButtons>
+    )
 }
-export default observer(InputMessage)
+export default observer(InputMessageMobil)

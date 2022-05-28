@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import {ReactComponent as Search} from 'images/Menu/Search.svg';
-import {ReactComponent as Images} from 'images/Menu/Images.svg';
-import {ReactComponent as PinAngle} from 'images/Menu/PinAngle.svg';
-import {ReactComponent as XCircle} from 'images/Menu/XCircle.svg';
-import {ReactComponent as Basket} from 'images/Menu/Basket.svg';
-import {ReactComponent as Prof} from 'images/UserCircleW.svg';
-import { Link } from 'react-router-dom';
 import { IUserData } from 'App';
-
-
 import Hamburger from "components/pages/Menu/Hamburger";
+import { ReactComponent as Basket } from 'images/Menu/Basket.svg';
+import { ReactComponent as Images } from 'images/Menu/Images.svg';
+import { ReactComponent as PinAngle } from 'images/Menu/PinAngle.svg';
+import { ReactComponent as Search } from 'images/Menu/Search.svg';
+import { ReactComponent as XCircle } from 'images/Menu/XCircle.svg';
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+
+
 
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
@@ -19,7 +18,7 @@ const StyledMenu = styled.nav<{ open: boolean }>`
   position: fixed;
   width:400px;
   height:300px;
-  border-radius: 18px;
+  border-radius: 0 0  18px 18px;
   background-color: #5496FF;
   padding-top: 10px;
   flex-direction: column;

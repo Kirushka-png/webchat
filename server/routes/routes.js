@@ -115,9 +115,4 @@ router.post('/changeAvatar', authMiddleware, upload.single('image'), userControl
 router.post('/uploadFile', authMiddleware, upload.single('file'), userController.uploadFile)
 router.get('/getChats', function(req, res) { SSE.getChats(req, res) })
 router.post('/createChat', authMiddleware, chatController.createChat)
-router.post('/getMessages', function(req, res) {})
-router.post('/getUsers', function(req, res) {
-    const sse = _.find(SseConnections, (conn) => conn.req.cookie == req.cookie);
-    sse && sse.getUsers(req, res)
-})
 router.post('/sendMessage', authMiddleware, upload.array('files', 10), chatController.sendMessage)

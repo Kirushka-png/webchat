@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as Menu } from "images/Chat/Justify.svg";
 export const StyledHamburger = styled.button<{ open: boolean }>`
-  left: 5vw;
-  top: 7vw;
-  width: 2rem;
-  height: 2rem;
+  position: absolute;
+  top: -6px;
+  left:60px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
   background: transparent;
   margin:40px;
   display: flex;
@@ -15,9 +16,10 @@ export const StyledHamburger = styled.button<{ open: boolean }>`
   border: none;
   cursor: pointer;
   @media (max-width:998px) {
-    margin:20px;
-    margin-right:0px;
-    } 
+    left: auto;
+    top: 0px;
+    right:0px;
+  } 
 
   div {
     position: relative;

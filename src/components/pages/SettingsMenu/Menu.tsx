@@ -1,23 +1,23 @@
-import React, { useState, useContext } from "react";
-import styled from "styled-components";
-import {ReactComponent as PersonCircle} from 'images/SettingsImg/PersonCircle.svg';
-import {ReactComponent as TextareaT} from 'images/SettingsImg/TextareaT.svg';
-import {ReactComponent as XCircle} from 'images/SettingsImg/XCircle.svg';
-import { Link } from 'react-router-dom';
 import { IUserData } from 'App';
-import { Context } from 'index'
-import UserIcon from "images/Chat/UserImg.png";
-import { useMediaQuery } from "react-responsive";
 import Hamburger from "components/pages/SettingsMenu/Hamburger";
-import {ModalText} from "../../../styles/pages/Chat/Chat";
+import UserIcon from "images/Chat/UserImg.png";
+import { ReactComponent as PersonCircle } from 'images/SettingsImg/PersonCircle.svg';
+import { ReactComponent as TextareaT } from 'images/SettingsImg/TextareaT.svg';
+import { ReactComponent as XCircle } from 'images/SettingsImg/XCircle.svg';
+import { Context } from 'index';
+import React, { useContext, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { ModalText } from "../../../styles/pages/Chat/Chat";
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
   right:17%;
-  top: 20%;
+  top: 0;
   position: fixed;
   width:21%;
   height:200px;
-  border-radius: 18px;
+  border-radius: 0 0  18px 18px;
   background-color: #5496FF;
   padding-top: 10px;
   flex-direction: column;
@@ -26,6 +26,7 @@ const StyledMenu = styled.nav<{ open: boolean }>`
   @media (max-width:1500px) {       
     right:12%;
     width:24%;
+    top: 20%;
 
   } 
   @media (max-height:950px) {        
@@ -43,13 +44,19 @@ const StyledMenu = styled.nav<{ open: boolean }>`
     padding-top: 70px;      
     right:10%;
     top: 5%;
-    width:31.5%;
     width: 80%;
     height:310px;
     @media (min-height:950px) {        
     top:10%;
     width:90%;     
     right:5%;
+  } 
+  @media (max-width:600px) { 
+    padding-top: 70px;      
+    right:0%;
+    top: 0%;
+    width: 100%;
+    height:310px;
   } 
   }  
 `;

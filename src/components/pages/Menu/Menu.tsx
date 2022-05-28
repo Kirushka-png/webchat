@@ -1,40 +1,28 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import {ReactComponent as Search} from 'images/Menu/Search.svg';
-import {ReactComponent as Images} from 'images/Menu/Images.svg';
-import {ReactComponent as PinAngle} from 'images/Menu/PinAngle.svg';
-import {ReactComponent as XCircle} from 'images/Menu/XCircle.svg';
-import {ReactComponent as Basket} from 'images/Menu/Basket.svg';
-import {ReactComponent as Prof} from 'images/UserCircleW.svg';
-import { Link } from 'react-router-dom';
 import { IUserData } from 'App';
-
-
 import Hamburger from "components/pages/Menu/Hamburger";
+import { ReactComponent as Basket } from 'images/Menu/Basket.svg';
+import { ReactComponent as Images } from 'images/Menu/Images.svg';
+import { ReactComponent as PinAngle } from 'images/Menu/PinAngle.svg';
+import { ReactComponent as Search } from 'images/Menu/Search.svg';
+import { ReactComponent as XCircle } from 'images/Menu/XCircle.svg';
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+
+
 
 const StyledMenu = styled.nav<{ open: boolean }>`
-  width: 100vw;
-  position: fixed;
-  width:400px;
-  height:300px;
-  border-radius: 18px;
+  width: 100% !important;
+  position: absolute;
+  z-index: 100;
+  top:0;
+  left:0;
+  border-radius: 0 0  18px 18px;
   background-color: #5496FF;
   padding-top: 70px;
   flex-direction: column;
   display: ${({ open }) => (open ? "flex" : "none")}; 
-
-    @media (max-width:998px) {       
-    right:10%;
-    top: 5%;
-    width: 80%;
-    height:270px;
-    @media (min-height:950px) {        
-    top:10%;
-    width:90%;     
-    right:5%;
-  } 
-  } 
-`;
+`
 const StyledLink = styled(Link)`
   text-decoration: none;
   padding: 10px 10%;
@@ -54,10 +42,6 @@ const StyledLinkTop = styled(StyledLink)`
   @media (max-width:998px) {
     padding-top:20px;
   } 
-`;
-const Icons = styled.div`
-  display:flex;
-  flex-direction:row;
 `;
 
 interface Props{

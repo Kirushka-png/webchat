@@ -3,7 +3,7 @@ import { IDialog } from 'codebase/models/IDialog';
 import { IMessage } from 'codebase/models/IMessage';
 import { IUser } from "codebase/models/IUser";
 import Message from 'components/pages/Chat/message/Message';
-import { MenuItem } from "components/pages/Menu/Menu";
+import { MenuItem } from "components/pages/Menu/MenuChat";
 import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
 import { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
@@ -14,7 +14,7 @@ import { Context } from 'index';
 import { observer } from 'mobx-react-lite';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from "react-responsive";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   Chat, Dialogs, DialogsUser, DialogUsers, ModalBody, ModalCont,
   ModalContainer,
@@ -25,10 +25,7 @@ import { DialogLink } from 'styles/pages/Chat/ChatMobilDialogs';
 import ChatDialog from './chatDialog/ChatDialog';
 import InputMessage from './inputMessage/InputMessage';
 
-const ChatMobilDesktop = () => {
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 998px)",
-  });
+const ChatDesktop = () => {
 
   const isDesktop1 = useMediaQuery({
     query: "(min-width: 1500px)",
@@ -76,7 +73,9 @@ const ChatMobilDesktop = () => {
           <ModalContainer>
             <Chat>
               <ModalHeader>
-              <ArrowLeft style={{ width: "50px", marginLeft: "40px", marginRight: "-40px" }} />
+                <NavLink to={`/chat`}>
+                  <ArrowLeft style={{ width: "50px", marginLeft: "40px", marginRight: "-40px" }} />
+                </NavLink>
                 <ModalMenu>     
                   <MenuItem/>
                 </ModalMenu>
@@ -132,4 +131,4 @@ const ChatMobilDesktop = () => {
   );
 };
 
-export default  observer(ChatMobilDesktop);
+export default  observer(ChatDesktop);

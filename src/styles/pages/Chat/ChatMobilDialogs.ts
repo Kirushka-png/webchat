@@ -19,7 +19,6 @@ export const ModalHeader = styled.div`
     align-items:center;
     padding:20px; 
 `
-
 export const ModalName = styled.div`
     display:flex;
     flex-direction:column;
@@ -66,6 +65,10 @@ export const ModalContainer = styled.div`
     @media (max-height:950px) {
         height: 90%;
         width: 80%;
+    }
+    @media (max-width:600px) {
+        height: 100%;
+        width: 100%;
     }
 `
 

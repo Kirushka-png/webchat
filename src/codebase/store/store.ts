@@ -1,3 +1,4 @@
+import { MAIN_IP } from "App";
 import axios from "axios";
 import { API_URL } from "codebase/http";
 import IMessage from "codebase/models/IMessage";
@@ -8,6 +9,7 @@ import ChatService from "codebase/services/ChatService";
 import UserService from "codebase/services/UserService";
 import { makeAutoObservable } from 'mobx';
 import { io } from "socket.io-client";
+
 export default class Store {
     user = {} as IUser
     isAuth = false
@@ -16,7 +18,7 @@ export default class Store {
     msgEdit = {} as IMessage
     msg = {} as IMessage
     currentChatID = 0
-    io = io(`http://localhost:5000`, {withCredentials: true})
+    io = io(`http://${MAIN_IP}:5000`, {withCredentials: true})
 
     constructor(){
         makeAutoObservable(this)
@@ -56,7 +58,7 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
-            this.io = io(`http://localhost:5000`, {withCredentials: true})
+            this.io = io(`http://${MAIN_IP}:5000`, {withCredentials: true})
         } catch (error) {
             console.log(error)
         }
@@ -68,7 +70,7 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
-            this.io = io(`http://localhost:5000`, {withCredentials: true})
+            this.io = io(`http://${MAIN_IP}:5000`, {withCredentials: true})
         } catch (error) {
             console.log(error)
         }
