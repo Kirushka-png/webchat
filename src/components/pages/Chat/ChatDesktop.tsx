@@ -3,7 +3,7 @@ import { IDialog } from 'codebase/models/IDialog';
 import { IMessage } from 'codebase/models/IMessage';
 import { IUser } from "codebase/models/IUser";
 import Message from 'components/pages/Chat/message/Message';
-import { MenuItem } from "components/pages/Menu/MenuChat";
+import MenuChat from "components/pages/Menu/MenuChat";
 import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
 import { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
@@ -77,7 +77,7 @@ const ChatDesktop = () => {
                   <ArrowLeft style={{ width: "50px", marginLeft: "40px", marginRight: "-40px" }} />
                 </NavLink>
                 <ModalMenu>     
-                  <MenuItem/>
+                  <MenuChat/>
                 </ModalMenu>
                 <img
                   src={UserImg}

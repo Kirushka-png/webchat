@@ -1,15 +1,10 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
-import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
-import { ReactComponent as LineVert } from "images/Chat/LineVert.svg";
-import { ReactComponent as Online } from "images/Chat/Online.svg";
-import { ReactComponent as Veronika } from "images/Chat/Veronika.svg";
+import { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 import { ReactComponent as Images } from "images/Chat/Images.svg";
-import { ReactComponent as Menu } from "images/Chat/Justify.svg";
-import { ReactComponent as Send } from "images/Chat/Send.svg";
-import { ReactComponent as Settings } from "images/Chat/Gear.svg";
-import UserIcon from "images/Chat/UserImg.png";
-import { ReactComponent as Search } from "images/Chat/Search.svg";
+import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
+import { ReactComponent as Search } from "images/Chat/Search.svg";
+import { ReactComponent as Send } from "images/Chat/Send.svg";
 import { useMediaQuery } from "react-responsive";
 import {
   BodySmsBot,
@@ -19,18 +14,9 @@ import {
   ModalBody,
   ModalButtons,
   ModalCont,
-  ModalContainer,
-  ModalHeader,
-  ModalName,
-  ModalText,
-  ModalWrapper,
-  ModalMenu,
-  SmsInput,
-  ModalSettings,
+  ModalContainer, ModalWrapper, SmsInput
 } from "../../../styles/pages/Chat/ChatMobilChat";
 
-import { MenuItem } from "components/pages/Menu/Menu";
-import { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 
 const ChatMobilChat = () => {
   const isDesktop = useMediaQuery({

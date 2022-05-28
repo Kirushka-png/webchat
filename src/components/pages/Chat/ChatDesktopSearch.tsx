@@ -1,39 +1,26 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
+import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
+import { ReactComponent as Images } from "images/Chat/Images.svg";
 import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
 import { ReactComponent as LineVert } from "images/Chat/LineVert.svg";
-import { ReactComponent as Online } from "images/Chat/Online.svg";
-import { ReactComponent as Veronika } from "images/Chat/Veronika.svg";
-import { ReactComponent as Images } from "images/Chat/Images.svg";
-import { ReactComponent as Search } from "images/Chat/Search.svg";
-import { ReactComponent as Settings } from "images/Chat/Gear.svg";
-import UserIcon from "images/Chat/UserImg.png";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
+import { ReactComponent as Search } from "images/Chat/Search.svg";
+import UserIcon from "images/Chat/UserImg.png";
+import { ReactComponent as Veronika } from "images/Chat/Veronika.svg";
 import { useMediaQuery } from "react-responsive";
 import {
   BodySmsBot,
   BodySmsButton,
   Button,
-  Chat,
-  Dialogs,
-  ModalBody,
+  Chat, DialogItem,
+  DialogItemCheck, Dialogs, DialogsUser, DialogUsers, ModalBody,
   ModalButtons,
   ModalCont,
   ModalContainer,
-  ModalHeader,
-  ModalName,
-  ModalText,
-  ModalWrapper,
-  ModalSettings,
-  DialogsUser,
-  ModalMenu,
-  SmsInput,
-  DialogItem,
-  DialogItemCheck,
-  DialogUsers,
+  ModalHeader, ModalSettings, ModalText,
+  ModalWrapper, SmsInput
 } from "../../../styles/pages/Chat/Chat";
 
-import { MenuItem } from "components/pages/Menu/Menu";
-import { MenuItemSettings } from "components/pages/SettingsMenu/Menu";
 
 
 const ChatMobilDesktop = () => {

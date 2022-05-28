@@ -72,6 +72,7 @@ io.on('connection', client => {
             io.to(`${chatID}`).emit('messages', JSON.stringify(messages))
         })
         client.on('deleteMessages', async(chatID) => {
+            console.log(chatID)
             await chatService.deleteMessages(refreshToken, chatID)
             const messages = await chatService.getMessages(refreshToken, chatID)
             io.to(`${chatID}`).emit('messages', JSON.stringify(messages))

@@ -5,11 +5,11 @@ import { ReactComponent as Images } from 'images/Menu/Images.svg';
 import { ReactComponent as PinAngle } from 'images/Menu/PinAngle.svg';
 import { ReactComponent as Search } from 'images/Menu/Search.svg';
 import { ReactComponent as XCircle } from 'images/Menu/XCircle.svg';
-import React, { useState, useContext } from "react";
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import styled from "styled-components";
-import { Context } from 'index' 
-
 
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100% !important;
@@ -49,7 +49,7 @@ interface Props{
   onOpenChat(): any
 }
 
-export const MenuItem = () => {
+export const Menu = () => {
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
   const { id } = useParams()
@@ -69,3 +69,5 @@ export const MenuItem = () => {
      </div>
    );
 };
+
+export default observer(Menu)

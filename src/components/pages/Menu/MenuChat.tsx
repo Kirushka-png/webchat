@@ -5,10 +5,11 @@ import { ReactComponent as Images } from 'images/Menu/Images.svg';
 import { ReactComponent as PinAngle } from 'images/Menu/PinAngle.svg';
 import { ReactComponent as Search } from 'images/Menu/Search.svg';
 import { ReactComponent as XCircle } from 'images/Menu/XCircle.svg';
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
 import styled from "styled-components";
-
 
 
 const StyledMenu = styled.nav<{ open: boolean }>`
@@ -75,9 +76,11 @@ interface Props{
   onOpenChat(): any
 }
 
-export const MenuItem = () => {
+export const MenuChat = () => {
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
+  const { id } = useParams()
+  const { store } = useContext(Context)
 
   return (
     <div>
@@ -85,7 +88,7 @@ export const MenuItem = () => {
         <StyledLinkTop to="" onClick={() => close()}><Search style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Поиск по сообщениям</StyledLinkTop>
         <StyledLink to="" onClick={() => close()}><Images style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Показать вложения</StyledLink>
         <StyledLink to="" onClick={() => close()}><PinAngle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Закрепить чат</StyledLink>
-        <StyledLink to="" onClick={() => close()}><Basket style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Очистить диалог</StyledLink>
+        <StyledLink to="" onClick={() =>{store.io.emit('deleteMessages', id && id.slice(1)); close()}}><Basket style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Очистить диалог</StyledLink>
         <StyledLink to="" onClick={() => close()}><XCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Удалить чат</StyledLink>
 
       </StyledMenu>
@@ -93,3 +96,4 @@ export const MenuItem = () => {
      </div>
    );
 };
+export default observer(MenuChat)

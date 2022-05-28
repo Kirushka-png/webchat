@@ -9,7 +9,6 @@ import { tokenService } from "./token.service.js";
 class ChatService {
 
     async checkUserInChat(userID, chatID) {
-        console.log(userID, chatID)
         const flag = await db.models.chatUserModel.findOne({ where: { userID: userID, chatID: chatID } })
 
         return flag ? true : false
@@ -18,8 +17,8 @@ class ChatService {
     async createNewChat(userData, userID) {
         const seconduser = await db.models.userModel.findByPk(userID)
         const chat = await db.models.chatModel.create({ admin: userData.id, private: true, name: `${userData.name}/${seconduser.name}` })
-        await db.models.chatUserModel.create({ chatID: chat.id, userID: userID, admin: false })
-        await db.models.chatUserModel.create({ chatID: chat.id, userID: userData.id, admin: true })
+        await db.models.chatUserModel.create({ chatID: chat.id, userID: userID, messagesFrom: 0, admin: false })
+        await db.models.chatUserModel.create({ chatID: chat.id, userID: userData.id, messagesFrom: 0, admin: true })
 
     }
 
@@ -52,10 +51,13 @@ class ChatService {
     async deleteMessages(refreshToken, chatID) {
         const userData = tokenService.validateRefreshToken(refreshToken);
         if (chatID && await this.checkUserInChat(userData.id, chatID)) {
-            const msgs = await db.models.messageModel.findAll({where: {chatID: chatID}})
-            const messageID = msgs[msgs.lenght-1].id 
-            const chat = await db.models.chatUserModel.update({messagesFromL: messageID},{where:{chatID: chatID, userID: userData.id}})
-            return chat
+            let msgs = await db.models.messageModel.findAll({ where: { chatID: chatID } })
+            msgs = msgs.map((msg) => new MessageDTO(msg))
+            if (msgs.length != 0) {
+                const messageID = msgs[msgs.length - 1].id
+                const chat = await db.models.chatUserModel.update({ messagesFrom: messageID }, { where: { chatID: chatID, userID: userData.id } })
+                return chat
+            }
         } else {
             return ApiError.AccessDenied()
         }
@@ -65,9 +67,9 @@ class ChatService {
         const userData = tokenService.validateRefreshToken(refreshToken);
         if (chatID && await this.checkUserInChat(userData.id, chatID)) {
             let messages = await db.models.messageModel.findAll({ where: { chatID: chatID } })
-            const msgsFrom = await db.models.chatUserModel.findOne({where: {chatID: chatID, userID: userData.id}})
+            const msgsFrom = await db.models.chatUserModel.findOne({ where: { chatID: chatID, userID: userData.id } })
             messages = messages.map((message) => new MessageDTO(message))
-            messages = _.filter(messages, (message) => message.id > msgsFrom.messagesFrom)
+            messages = _.filter(messages, (message) => msgsFrom.messagesFrom != null && message.id > msgsFrom.messagesFrom)
             return messages
         } else {
             return ApiError.AccessDenied()

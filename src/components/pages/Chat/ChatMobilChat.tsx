@@ -2,7 +2,7 @@
 import { IDialog } from "codebase/models/IDialog";
 import IMessage from "codebase/models/IMessage";
 import { IUser } from "codebase/models/IUser";
-import { MenuItem } from "components/pages/Menu/Menu";
+import Menu from "components/pages/Menu/Menu";
 import { ReactComponent as ArrowLeft } from "images/Chat/ArrowLeft.svg";
 import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
 import { ReactComponent as Online } from "images/Chat/Online.svg";
@@ -81,7 +81,7 @@ const ChatMobilChat = () => {
                 <Online style={{ marginLeft: "-10px" }} />
               </ModalName>
               <ModalSettings >    
-                  <MenuItem/>
+                  <Menu/>
               </ModalSettings>
             </ModalHeader>
             <LineHor style={{ width: "90%" }} />

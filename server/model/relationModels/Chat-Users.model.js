@@ -8,7 +8,7 @@ export const chatUserModel = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        messagesFrom:{
+        messagesFrom: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
