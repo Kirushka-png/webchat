@@ -17,11 +17,10 @@ export interface IUserData {
   login: string,
   password: string
 }
-export const MAIN_IP = '185.16.56.25'
+export const MAIN_IP = 'localhost'
 
 
 const App = () => {
-  const data = { name: "123", login: "123", password: "123" }
 
   const [chatOpened, setChatOpened] = useState(false)
   const [userData, setUserData] = useState<IUserData | null>(null)

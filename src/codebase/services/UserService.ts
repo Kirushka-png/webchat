@@ -14,4 +14,7 @@ export default class UserService {
     static getChats():Promise<AxiosResponse<IDialog[]>>{
         return api.get<IDialog[]>('/getChats')
     }
+    static changeUsername(newname: string):Promise<AxiosResponse<any>>{
+        return api.post<IUser>('/changeUsername', { newname })
+    }
 }

@@ -111,6 +111,16 @@ export default class Store {
         }
     }
 
+    async changeUsername(newname: string){
+        try {
+            const response = await  UserService.changeUsername(newname)
+            localStorage.setItem('token', response.data.accessToken)
+            this.setUser(response.data.user)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getChats(){
         try {
             await UserService.getChats()

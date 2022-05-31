@@ -120,7 +120,6 @@ class UserService {
         }
         return dialogs
     }
-
 }
 
 export const userService = new UserService()
