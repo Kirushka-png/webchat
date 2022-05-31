@@ -4,7 +4,7 @@ export const sequelize = new Sequelize(
     'webchat',
     'defaultUser',
     '12345', {
-        host: "DESKTOP-T9387QK",
+        host: "LAPTOP-8J2AIRNH",
         dialect: 'mssql',
         dialectOptions: {
             options: {

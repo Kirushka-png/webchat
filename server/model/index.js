@@ -6,7 +6,7 @@ import { tokenModel } from './token.model.js'
 import { userModel } from './user.model.js'
 
 const sequelize = new Sequelize('webchat', 'defaultUser', '12345', {
-    host: "DESKTOP-T9387QK",
+    host: "LAPTOP-8J2AIRNH",
     dialect: 'mssql',
     dialectOptions: {
         options: {
