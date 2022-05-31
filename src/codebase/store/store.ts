@@ -18,6 +18,7 @@ export default class Store {
     msgEdit = {} as IMessage
     msg = {} as IMessage
     currentChatID = 0
+    changeNameModal = false
     io = io(`http://${MAIN_IP}:5000`, {withCredentials: true})
 
     constructor(){
@@ -26,6 +27,10 @@ export default class Store {
 
     setAuth(bool: boolean) {
         this.isAuth = bool
+    }
+
+    setChangeNameModal(bool: boolean){
+        this.changeNameModal = bool
     }
 
     setUser(user: IUser) {
@@ -52,6 +57,7 @@ export default class Store {
         this.msg = {} as IMessage
         this.editModeOn = false
     }
+
     async login(login: string, password: string){
         try {
             const response = await AuthService.login(login, password)

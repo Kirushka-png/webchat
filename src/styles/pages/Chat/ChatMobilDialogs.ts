@@ -1,13 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 export const ModalWrapper = styled.div`
-    display:flex;
     width: 100%;
-    position: absolute;
     height:100%;
-    top: 0;
-    z-index: 99999999;
-    background-color:rgba(98, 98, 98, 0.4);
 `
 export const ModalHeader = styled.div`
     display:flex;

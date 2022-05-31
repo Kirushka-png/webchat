@@ -10,6 +10,8 @@ import { useMediaQuery } from "react-responsive";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ModalText } from "../../../styles/pages/Chat/Chat";
+import { observer } from 'mobx-react-lite';
+
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
   right:17%;
@@ -111,7 +113,7 @@ export const MenuItemSettings = () => {
         <ModalText style={{ marginTop: "20px", color:"white", marginBottom:"20px" }}>Your Name</ModalText>
         }
         </User>
-        <StyledLinkTop to="" onClick={() => close()}><TextareaT style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить ник</StyledLinkTop>
+        <StyledLinkTop to="" onClick={() => {store.setChangeNameModal(true);close()}}><TextareaT style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить ник</StyledLinkTop>
         <StyledLink to="" onClick={() => close()}><PersonCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Сменить аватар</StyledLink>
         <StyledLink to="" onClick={() => store.logout()}><XCircle style={{"height" : "30px", "width" : "30px", marginRight:"30px"}}/>Выйти</StyledLink>
       </StyledMenu>
@@ -119,3 +121,5 @@ export const MenuItemSettings = () => {
      </div>
    );
 };
+
+export default observer(MenuItemSettings);

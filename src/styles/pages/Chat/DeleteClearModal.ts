@@ -5,7 +5,8 @@ export const ModalWrapper = styled.div`
     display:flex;
     width: 100%;
     position: absolute;
-    height:100%;
+    z-index: 99999999;
+    height:100vh;
     top: 0;
     background-color:rgba(98, 98, 98, 0.4);
 `

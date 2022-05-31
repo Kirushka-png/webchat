@@ -1,7 +1,6 @@
-import { ModalWrapper, ModalContainer, SmsInput, ModalMiniText, ModalButton, ModalCont, Buttons } from '../../../styles/pages/Chat/DeleteClearModal'
-import Icon from '../../../images/Login/ok.png';
+import { ModalWrapper, ModalContainer, SmsInput, ModalMiniText, ModalButton, ModalCont, Buttons } from 'styles/pages/Chat/DeleteClearModal'
 
-const ModalClear = () => {
+const ChangeNameModal = () => {
   return (
     <ModalWrapper>
       <ModalCont>
@@ -9,8 +8,8 @@ const ModalClear = () => {
           <ModalMiniText>Введите новое имя:</ModalMiniText>
           <SmsInput placeholder='Введите новое имя'/>
           <Buttons>
-          <ModalButton href="/main/diagnostics">Сменить</ModalButton>
-          <ModalButton href="/main/diagnostics">Отмена</ModalButton>
+          <ModalButton>Сменить</ModalButton>
+          <ModalButton>Отмена</ModalButton>
           </Buttons>   
         </ModalContainer>
       </ModalCont>
@@ -18,4 +17,4 @@ const ModalClear = () => {
   )
 }
 
-export default ModalClear;
+export default ChangeNameModal;
