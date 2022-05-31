@@ -34,7 +34,6 @@ const App = () => {
         {
           store.isLoading ? <></> : !store.isAuth ? <>
             <Route path="/" element={<Navigate to="/reg" replace />} />
-            <Route path="login" element={<Login />} />
             <Route path="reg" element={<Registration />} />
           </>
             : <>
