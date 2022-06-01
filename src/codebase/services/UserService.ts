@@ -27,6 +27,10 @@ export default class UserService {
             }
         })
     }
+    static getFilesFromMessage(id: number):Promise<AxiosResponse<IFile[]>>{
+        return api.post<IFile[]>('/getFilesFromMessage', { id })
+    }
+    
     static getImageById(id: number):Promise<AxiosResponse<IFile>>{
         return api.post<IFile>('/getImageById', { id })
     }

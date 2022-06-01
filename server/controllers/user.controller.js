@@ -121,9 +121,19 @@ class UserController {
 
     async getImageById(req, res, next) {
         try {
-            const {id} = req.body
+            const { id } = req.body
             const image = await userService.getImageById(id)
             return res.json(image)
+        } catch (error) {
+            next(error)
+
+        }
+    }
+    async getFilesFromMessage(req, res, next) {
+        try {
+            const { id } = req.body
+            const images = await userService.getFilesFromMessage(id)
+            return res.json(images)
         } catch (error) {
             next(error)
 

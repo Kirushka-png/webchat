@@ -33,7 +33,7 @@ export const InputMessage = ({ messagesContainer }: Props) => {
       }
     
     const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string) =>{
-        if(!_.isEqual(store.msgEdit, store.msg) && (text.trim() != '' || uploadedFiles.length != 0)){
+        if((!_.isEqual(store.msgEdit, store.msg) || !_.isEqual(store.filesEdit, store.files)) && (text.trim() != '' || store.files.length != 0)){
             store.io.emit('editMessage', messageID, chatID, text, file)
         }
         store.closeEditMode()
@@ -42,10 +42,16 @@ export const InputMessage = ({ messagesContainer }: Props) => {
     const UploadNewFile = (files: FileList | null) => {
         if(files && files.length != 0){
             store.UploadFile(files[0]).then((file) =>{
-                setUploadedFiles(a => [...a, file])
+                store.editModeOn ? store.setFiles([...store.files, file]) : setUploadedFiles(a => [...a, file])
             })
         }
     }
+    const deleteImgFromStore=(id: number)=>{
+        let temparr = store.files
+        temparr = _.filter(temparr, (val) => val.id != id)
+        store.setFiles([...temparr])
+    } 
+
     const deleteImg=(id: number)=>{
         let temparr = uploadedFiles
         temparr = _.filter(temparr, (val) => val.id != id)
@@ -64,24 +70,27 @@ export const InputMessage = ({ messagesContainer }: Props) => {
       });
     return (
         <>
-        <ModalButtons {...getRootProps()}>
-            <UploadLabel htmlFor="upload"><Images /></UploadLabel>
-            <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)}/>
-            <Mic />
-            {store.editModeOn ?  
-            <>
-                <SmsInput placeholder="Введите сообщение" value={store.msgEdit.text} onChange={(e) => { store.setMsgEdit(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, store.msgEdit.file)} />
-                <Button onClick={() => { editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, store.msgEdit.file) }}>Изменить</Button>
-            </>
-            :
-            <>
-                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, (uploadedFiles.map((file)=> file.id.toString())).join('/'))} />
-                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, (uploadedFiles.map((file)=> file.id.toString())).join('/')) }}>Отправить</Button>
-            </>
-            }
-            {isDragActive&& <DropImg/>}       
-        <ShowImg uploadedFiles={uploadedFiles} onDelete={(id: number)=> deleteImg(id)}/>
-        </ModalButtons> 
+            <ModalButtons {...getRootProps()}>
+                <UploadLabel htmlFor="upload"><Images /></UploadLabel>
+                <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)}/>
+                <Mic />
+                {store.editModeOn ?  
+                <>
+                    <SmsInput placeholder="Введите сообщение" value={store.msgEdit.text} onChange={(e) => { store.setMsgEdit(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, (store.files.map((file)=> file.name.toString())).join('/'))} />
+                    <Button onClick={() => { editMessage(store.msgEdit.id, id ? +id.slice(1) : undefined,store.msgEdit.text, (store.files.map((file)=> file.name.toString())).join('/')) }}>Изменить</Button>
+                </>
+                :
+                <>
+                    <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, (uploadedFiles.map((file)=> file.name.toString())).join('/'))} />
+                    <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, (uploadedFiles.map((file)=> file.name.toString())).join('/')) }}>Отправить</Button>
+                </>
+                }
+                {isDragActive&& <DropImg/>}
+                {
+                    store.editModeOn ? <ShowImg uploadedFiles={store.files} onDelete={(id: number)=> deleteImgFromStore(id)}/>:       
+                    <ShowImg uploadedFiles={uploadedFiles} onDelete={(id: number)=> deleteImg(id)}/>
+                }
+            </ModalButtons> 
         </>
         )
 }

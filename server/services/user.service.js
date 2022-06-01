@@ -125,9 +125,19 @@ class UserService {
     }
 
     async getImageById(imageID) {
-        console.log(imageID)
         return (new FileDTO(await db.models.fileModel.findByPk(imageID)))
 
+    }
+    async getFilesFromMessage(msgID) {
+        const msg = await db.models.messageModel.findByPk(msgID)
+        if (msg.file && msg.file != '') {
+            let files = []
+            for (const name of msg.file.split('/')) {
+                files.push(new FileDTO(await db.models.fileModel.findOne({ where: { name: name } })))
+            }
+            return files
+        }
+        return []
     }
 }
 

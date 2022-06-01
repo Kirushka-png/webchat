@@ -1,6 +1,7 @@
 import { MAIN_IP } from "App";
 import axios from "axios";
 import { API_URL } from "codebase/http";
+import { IFile } from "codebase/models/IFile";
 import IMessage from "codebase/models/IMessage";
 import { IUser } from "codebase/models/IUser";
 import { AuthResponse } from "codebase/models/response/AuthResponse";
@@ -19,6 +20,9 @@ export default class Store {
     msg = {} as IMessage
     currentChatID = 0
     changeNameModal = false
+    files = [] as IFile[]
+    filesEdit = [] as IFile[]
+
     io = io(`http://${MAIN_IP}:5000`, {withCredentials: true})
 
     constructor(){
@@ -44,10 +48,16 @@ export default class Store {
     setMsgEdit(text: string){
         this.msgEdit.text = text
     }
+    setFiles(files: IFile[]){
+        this.files = files
+    }
 
-    EditMessageMode(ChatID: number, msg: IMessage){
+    async EditMessageMode(ChatID: number, msg: IMessage){
         this.msgEdit = msg
         this.msg = msg
+        let file = await UserService.getFilesFromMessage(msg.id)
+        this.files = file.data
+        this.filesEdit = file.data
         this.currentChatID = ChatID
         this.editModeOn = true
     }
@@ -55,6 +65,8 @@ export default class Store {
     closeEditMode(){
         this.msgEdit = {} as IMessage
         this.msg = {} as IMessage
+        this.files = []
+        this.filesEdit = []
         this.editModeOn = false
     }
 
