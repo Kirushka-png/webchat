@@ -13,7 +13,7 @@ import styled from "styled-components";
 
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100% !important;
-  position: absolute;
+  position: fixed;
   z-index: 100;
   top:0;
   left:0;

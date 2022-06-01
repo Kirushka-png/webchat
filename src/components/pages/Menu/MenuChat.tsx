@@ -16,7 +16,7 @@ const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
   left:12%;
   top: 20%;
-  position: absolute;
+  position: fixed;
   z-index: 100;
   width:400px;
   height:300px;
