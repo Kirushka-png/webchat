@@ -69,7 +69,7 @@ class UserService {
         const newfile = await db.models.fileModel.create({ originalName: file.originalname, name: file.filename, type: file.mimetype, size: file.size, path: file.path, loader: userData.id })
         const filedata = new FileDTO(newfile)
 
-        return {...await this.defaultResponse(userData), file: filedata }
+        return { file: filedata }
 
     }
 
@@ -122,6 +122,10 @@ class UserService {
             dialogs.push(new ChatDTO(dialog))
         }
         return dialogs
+    }
+
+    async getImageById(imageID) {
+        return (new FileDTO(await db.models.fileModel.findbyPk(imageID)))
     }
 }
 

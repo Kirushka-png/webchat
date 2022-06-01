@@ -119,7 +119,15 @@ class UserController {
         }
     }
 
+    async getImageById(req, res, next) {
+        try {
+            const image = await userService.getImageById(req.id)
+            return res.json(image)
+        } catch (error) {
+            next(error)
 
+        }
+    }
 }
 
 export const userController = new UserController();

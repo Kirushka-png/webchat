@@ -1,4 +1,6 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
+import { IFile } from "codebase/models/IFile";
+import { ShowImg } from 'components/pages/Chat/DropImg/ShowImg';
 import { ReactComponent as Images } from "images/Chat/Images.svg";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
 import { ReactComponent as Send } from "images/Chat/Send.svg";
@@ -9,7 +11,6 @@ import { useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useParams } from "react-router-dom";
 import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/ChatMobilChat";
-import { ShowImg } from 'components/pages/Chat/DropImg/ShowImg';
 interface Props{
     messagesContainer: any
 }
@@ -23,9 +24,9 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
     const { id } = useParams()
     const { store } = useContext(Context)
     const [messageText, setMessageText] = useState('')
-    const [uploadedFiles, setUploadedFiles] = useState()
+    const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([])
 
-    const sendMessage = (text: string, chatID: number | undefined, file: FileReader | undefined) => {
+    const sendMessage = (text: string, chatID: number | undefined, file: string) => {
         if(text.trim() != ''){
           store.io.emit('sendMessage', text, chatID, file)
           messagesContainer.current && (messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight)
@@ -33,12 +34,18 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
         }
       }
     
-    const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string[] | undefined) =>{
+    const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string) =>{
         if(!_.isEqual(store.msgEdit, store.msg) && (text.trim() != '' || file)){
             store.io.emit('editMessage', messageID, chatID, text, file)
         }
         store.closeEditMode()
     }
+
+    const deleteImg=(id: number)=>{
+        let temparr = uploadedFiles
+        temparr = _.remove(temparr, (val) => val.id == id)
+        setUploadedFiles([...temparr])
+    } 
 
     return (
         <ModalButtons>
@@ -53,13 +60,13 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
             </>
             :
             <>
-                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles)} />
+                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, '')} />
                 { !isDesktop1 ? 
-                <Send style={{ width: "30px",height:"30px" }} onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}/> : 
-                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}>Отправить</Button>}
+                <Send style={{ width: "30px",height:"30px" }} onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, '') }}/> : 
+                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, '') }}>Отправить</Button>}
             </>
             }
-            <ShowImg/>
+            <ShowImg uploadedFiles={uploadedFiles} onDelete={(id: number)=>{deleteImg(id)}}/>
         </ModalButtons>
     )
 }

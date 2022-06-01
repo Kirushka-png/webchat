@@ -23,16 +23,17 @@ export const InputMessage = ({ messagesContainer }: Props) => {
     const [messageText, setMessageText] = useState('')
     const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([])
 
-    const sendMessage = (text: string, chatID: number | undefined, file: string | undefined) => {
-        if(text.trim() != ''){
+    const sendMessage = (text: string, chatID: number | undefined, file: string) => {
+        if(text.trim() != '' || uploadedFiles.length != 0){
           store.io.emit('sendMessage', text, chatID, file)
           messagesContainer.current && (messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight)
           setMessageText('')
+          setUploadedFiles([])
         }
       }
     
-    const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string[] | undefined) =>{
-        if(!_.isEqual(store.msgEdit, store.msg) && (text.trim() != '' || file)){
+    const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string) =>{
+        if(!_.isEqual(store.msgEdit, store.msg) && (text.trim() != '' || uploadedFiles.length != 0)){
             store.io.emit('editMessage', messageID, chatID, text, file)
         }
         store.closeEditMode()
@@ -45,8 +46,10 @@ export const InputMessage = ({ messagesContainer }: Props) => {
             })
         }
     }
-    const deleteImg=()=>{
-
+    const deleteImg=(id: number)=>{
+        let temparr = uploadedFiles
+        temparr = _.filter(temparr, (val) => val.id != id)
+        setUploadedFiles([...temparr])
     } 
 
     const [files, setFiles] = useState<File>();
@@ -72,12 +75,12 @@ export const InputMessage = ({ messagesContainer }: Props) => {
             </>
             :
             <>
-                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, '')} />
-                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, '') }}>Отправить</Button>
+                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, (uploadedFiles.map((file)=> file.id.toString())).join('/'))} />
+                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, (uploadedFiles.map((file)=> file.id.toString())).join('/')) }}>Отправить</Button>
             </>
             }
             {isDragActive&& <DropImg/>}       
-        <ShowImg onDelete={()=> deleteImg()}/>
+        <ShowImg uploadedFiles={uploadedFiles} onDelete={(id: number)=> deleteImg(id)}/>
         </ModalButtons> 
         </>
         )

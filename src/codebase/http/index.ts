@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const API_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api' : `http://185.16.56.25:5000/api`
+export const UPLOADS_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/uploads' : `http://185.16.56.25:5000/uploads`
 
 const api = axios.create({
     withCredentials: true,

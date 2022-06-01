@@ -1,14 +1,17 @@
-import {ImgShowCont,ImgShow} from "styles/pages/Chat/DeleteClearModal";
-import { ReactComponent as DelImg } from "images/Chat/DelImg.svg";
-import ImgContainer from "components/pages/Chat/DropImg/ImgContainer"
+import { UPLOADS_URL } from 'codebase/http/index';
+import { IFile } from "codebase/models/IFile";
+import ImgContainer from "components/pages/Chat/DropImg/ImgContainer";
+import { ImgShowCont } from "styles/pages/Chat/DeleteClearModal";
 
 interface Props{
-    onDelete(): any,
+    uploadedFiles: IFile[]
+    onDelete({...args}: any): any,
 }
-export function ShowImg({ onDelete } : Props) {
+
+export function ShowImg({uploadedFiles, onDelete } : Props) {
     return (
         <ImgShowCont>
-            <ImgContainer src="https://i.ytimg.com/vi/MF6vpY90z0M/maxresdefault.jpg" onDelete={()=>onDelete()}/>
+            {uploadedFiles.map((file, idx) => <ImgContainer key={ idx } src={UPLOADS_URL + '/' + file.name} onDelete={()=>onDelete(file.id)}/>)}
         </ImgShowCont>
     );
   }

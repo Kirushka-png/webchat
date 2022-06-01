@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios"
 import api from "codebase/http/index"
 import { IDialog } from 'codebase/models/IDialog'
+import { IFile } from "codebase/models/IFile"
 import { IMessage } from 'codebase/models/IMessage'
 import { IUser } from 'codebase/models/IUser'
 
@@ -25,5 +26,8 @@ export default class UserService {
               'Content-Type': 'multipart/form-data'
             }
         })
+    }
+    static getImageById(id: number):Promise<AxiosResponse<IFile>>{
+        return api.post<IFile>('/getImageById', { id })
     }
 }

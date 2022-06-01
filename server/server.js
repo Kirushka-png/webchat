@@ -62,7 +62,6 @@ io.on('connection', client => {
             client.join(`${chatID}`)
             const messages = await chatService.getMessages(refreshToken, chatID)
             const users = await chatService.getUsersFromChat(refreshToken, chatID)
-
             client.emit('messages', JSON.stringify(messages))
             client.emit('usersInChat', JSON.stringify(users))
         })
