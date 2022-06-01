@@ -1,12 +1,15 @@
 export class FileDTO {
-    originalname
+    id
+    originalName
     type
-    filename
+    name
     size
+
     constructor(model) {
-        this.originalname = model.originalname
-        this.type = model.mimetype
-        this.filename = model.filename
+        this.id = model.id
+        this.originalName = model.originalName
+        this.type = model.type
+        this.name = model.name
         this.size = model.size
     }
 }

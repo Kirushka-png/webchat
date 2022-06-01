@@ -150,4 +150,14 @@ export default class Store {
             console.log(error)
         }
     }
+
+    async UploadFile(file: File){
+        try {
+            const response = await UserService.UploadFile(file)
+            localStorage.setItem('token', response.data.accessToken)
+            return response.data.file
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

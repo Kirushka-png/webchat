@@ -66,10 +66,10 @@ class UserService {
     }
     async uploadFile(accessToken, file) {
         const userData = tokenService.validateAccessToken(accessToken);
+        const newfile = await db.models.fileModel.create({ originalName: file.originalname, name: file.filename, type: file.mimetype, size: file.size, path: file.path, loader: userData.id })
+        const filedata = new FileDTO(newfile)
 
-        const filedata = new FileDTO(file)
-
-        return {...await this.defaultResponse(userData), ...filedata }
+        return {...await this.defaultResponse(userData), file: filedata }
 
     }
 

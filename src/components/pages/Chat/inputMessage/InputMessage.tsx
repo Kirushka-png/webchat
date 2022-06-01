@@ -1,4 +1,5 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
+import { IFile } from "codebase/models/IFile";
 import { ReactComponent as Images } from "images/Chat/Images.svg";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
 import { Context } from "index";
@@ -6,7 +7,7 @@ import _ from "lodash";
 import { observer } from 'mobx-react-lite';
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/Chat";
+import { Button, ModalButtons, SmsInput, UploadInput, UploadLabel } from "styles/pages/Chat/Chat";
 
 interface Props{
     messagesContainer: any
@@ -17,9 +18,9 @@ export const InputMessage = ({ messagesContainer }: Props) => {
     const { id } = useParams()
     const { store } = useContext(Context)
     const [messageText, setMessageText] = useState('')
-    const [uploadedFiles, setUploadedFiles] = useState()
+    const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([])
 
-    const sendMessage = (text: string, chatID: number | undefined, file: FileReader | undefined) => {
+    const sendMessage = (text: string, chatID: number | undefined, file: string | undefined) => {
         if(text.trim() != ''){
           store.io.emit('sendMessage', text, chatID, file)
           messagesContainer.current && (messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight)
@@ -34,9 +35,18 @@ export const InputMessage = ({ messagesContainer }: Props) => {
         store.closeEditMode()
     }
 
+    const UploadNewFile = (files: FileList | null) => {
+        if(files && files.length != 0){
+            store.UploadFile(files[0]).then((file) =>{
+                setUploadedFiles(a => [...a, file])
+            })
+        }
+    }
+
     return (
         <ModalButtons>
-            <Images />
+            <UploadLabel htmlFor="upload"><Images /></UploadLabel>
+            <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)}/>
             <Mic />
             {store.editModeOn ?  
             <>
@@ -45,8 +55,8 @@ export const InputMessage = ({ messagesContainer }: Props) => {
             </>
             :
             <>
-                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles)} />
-                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}>Отправить</Button>
+                <SmsInput placeholder="Введите сообщение" value={messageText} onChange={(e) => { setMessageText(e.target.value) }} onKeyPress={(e) => e.key === 'Enter' && sendMessage(messageText, id ? +id.slice(1) : undefined, '')} />
+                <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, '') }}>Отправить</Button>
             </>
             }
         </ModalButtons>)

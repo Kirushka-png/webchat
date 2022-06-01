@@ -1,5 +1,5 @@
 export const fileModel = (sequelize, DataTypes) => {
-    return sequelize.define('Chat', {
+    return sequelize.define('File', {
         originalName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -13,7 +13,7 @@ export const fileModel = (sequelize, DataTypes) => {
             allowNull: false,
         },
         size: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         path: {
@@ -21,7 +21,7 @@ export const fileModel = (sequelize, DataTypes) => {
             allowNull: false,
         },
         loader: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
         }
 

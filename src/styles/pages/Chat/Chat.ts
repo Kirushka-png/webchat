@@ -279,6 +279,13 @@ export const SmsInput = styled.input`
         margin-top:20px;
     }
 `
+export const UploadInput = styled.input`
+    display: none;
+`
+export const UploadLabel = styled.label`
+    cursor: pointer;
+`
+
 export const DialogUsers = styled.div`
     display:flex;
     flex-direction:column;

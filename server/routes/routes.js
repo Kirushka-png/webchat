@@ -8,7 +8,19 @@ import { authMiddleware } from '../middlewares/auth.middleware.js';
 import { tokenService } from "../services/token.service.js";
 import { userService } from "../services/user.service.js";
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function(req, file, cb) {
+        let extArray = file.mimetype.split("/");
+        let extension = extArray[extArray.length - 1];
+        cb(null, Date.now() + '.' + extension)
+    }
+})
+
 const upload = multer({ dest: 'uploads/' })
+const uploadImage = multer({ storage: storage })
 
 class SSESession {
 
@@ -113,7 +125,7 @@ router.get('/refresh', userController.refresh)
 router.get('/users', authMiddleware, userController.getUsers)
 router.post('/changeUsername', authMiddleware, userController.changeName)
 router.post('/changeAvatar', authMiddleware, upload.single('image'), userController.changeAvatar)
-router.post('/uploadFile', authMiddleware, upload.single('file'), userController.uploadFile)
+router.post('/uploadFile', authMiddleware, uploadImage.single('file'), userController.uploadFile)
 router.get('/getChats', function(req, res) { SSE.getChats(req, res) })
 router.post('/createChat', authMiddleware, chatController.createChat)
 router.post('/sendMessage', authMiddleware, upload.array('files', 10), chatController.sendMessage)

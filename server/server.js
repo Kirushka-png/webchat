@@ -25,6 +25,7 @@ app.use(cors({
 }))
 app.use(cookieParser());
 app.use('/api', router)
+app.use('/uploads', express.static('uploads'));
 app.use(fileUpload)
 app.use(errorMiddleware)
 
@@ -61,7 +62,7 @@ io.on('connection', client => {
             client.join(`${chatID}`)
             const messages = await chatService.getMessages(refreshToken, chatID)
             const users = await chatService.getUsersFromChat(refreshToken, chatID)
-            console.log(users)
+
             client.emit('messages', JSON.stringify(messages))
             client.emit('usersInChat', JSON.stringify(users))
         })
