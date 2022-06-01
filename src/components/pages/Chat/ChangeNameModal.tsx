@@ -1,15 +1,22 @@
-import { ModalWrapper, ModalContainer, SmsInput, ModalMiniText, ModalButton, ModalCont, Buttons } from 'styles/pages/Chat/DeleteClearModal'
+import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
+import { useContext, useState } from 'react';
+import { Buttons, ModalButton, ModalCont, ModalContainer, ModalMiniText, ModalWrapper, SmsInput } from 'styles/pages/Chat/DeleteClearModal';
 
 const ChangeNameModal = () => {
+
+  const { store } = useContext(Context)
+  const [username, setUsername] = useState<string>(store.user.name)
+
   return (
     <ModalWrapper>
       <ModalCont>
         <ModalContainer style={{height:"30%"}}>
           <ModalMiniText>Введите новое имя:</ModalMiniText>
-          <SmsInput placeholder='Введите новое имя'/>
+          <SmsInput placeholder='Введите новое имя' onChange={(e)=>{setUsername(e.target.value)}} value={username}/>
           <Buttons>
-          <ModalButton>Сменить</ModalButton>
-          <ModalButton>Отмена</ModalButton>
+          <ModalButton onClick={()=>{username.trim() != '' && store.changeUsername(username); store.setChangeNameModal(false)}}>Сменить</ModalButton>
+          <ModalButton onClick={()=> {store.setChangeNameModal(false)}}>Отмена</ModalButton>
           </Buttons>   
         </ModalContainer>
       </ModalCont>
@@ -17,4 +24,4 @@ const ChangeNameModal = () => {
   )
 }
 
-export default ChangeNameModal;
+export default observer(ChangeNameModal);

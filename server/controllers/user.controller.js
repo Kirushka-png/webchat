@@ -65,6 +65,7 @@ class UserController {
         try {
             const { newname } = req.body
             const user = await userService.changeName(req.headers.authorization, newname)
+            res.cookie('refreshToken', user.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
             return res.json(user)
         } catch (error) {
             next(error)

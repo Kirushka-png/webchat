@@ -115,7 +115,10 @@ class UserService {
         const chats = await db.models.chatUserModel.findAll({ where: { userID: userData.id } })
         let dialogs = []
         for (const chat of chats) {
-            const dialog = await db.models.chatModel.findOne({ where: { id: chat.chatID } })
+            let dialog = await db.models.chatModel.findOne({ where: { id: chat.chatID } })
+            const nameID = dialog.name.split('/').find((val) => val != userData.id)
+            const firstuser = await db.models.userModel.findByPk(nameID)
+            dialog.name = firstuser.name
             dialogs.push(new ChatDTO(dialog))
         }
         return dialogs

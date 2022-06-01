@@ -27,11 +27,6 @@ const ChatDeskDialogs = () => {
 
   const setChats = (chats: string) => {
     let dialogs = JSON.parse(chats) as IDialog[]
-    dialogs.forEach((dialog) => {
-      if(dialog.private){
-        dialog.name = dialog.name.split('/').filter(name => name !== store.user.name)[0]
-      }
-    })
     setDialogs(dialogs)
   }
 

@@ -16,7 +16,7 @@ class ChatService {
 
     async createNewChat(userData, userID) {
         const seconduser = await db.models.userModel.findByPk(userID)
-        const chat = await db.models.chatModel.create({ admin: userData.id, private: true, name: `${userData.name}/${seconduser.name}` })
+        const chat = await db.models.chatModel.create({ admin: userData.id, private: true, name: `${userData.id}/${seconduser.id}` })
         await db.models.chatUserModel.create({ chatID: chat.id, userID: userID, messagesFrom: 0, admin: false })
         await db.models.chatUserModel.create({ chatID: chat.id, userID: userData.id, messagesFrom: 0, admin: true })
 

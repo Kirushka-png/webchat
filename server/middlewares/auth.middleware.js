@@ -5,11 +5,13 @@ export function authMiddleware(req, res, next) {
     try {
         const authHeader = req.headers.authorization
 
+        console.log(authHeader)
         if (!authHeader) {
             return next(ApiError.UnauthorizedError())
         }
 
         const userData = tokenService.validateAccessToken(authHeader)
+        console.log(userData)
         if (!userData) {
             return next(ApiError.UnauthorizedError())
         }
