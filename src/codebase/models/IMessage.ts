@@ -1,7 +1,7 @@
 export interface IMessage{
     id: number,
     text: string,
-    files: string,
+    file: string,
     author: number,
     status: boolean,
     wasRedacted: boolean,

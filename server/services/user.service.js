@@ -125,7 +125,9 @@ class UserService {
     }
 
     async getImageById(imageID) {
-        return (new FileDTO(await db.models.fileModel.findbyPk(imageID)))
+        console.log(imageID)
+        return (new FileDTO(await db.models.fileModel.findByPk(imageID)))
+
     }
 }
 

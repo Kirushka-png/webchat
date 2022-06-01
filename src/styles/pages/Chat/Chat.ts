@@ -84,6 +84,7 @@ export const ModalBody = styled.div`
 `
 export const BodySmsBot = styled.div`
     display:flex;
+    flex-direction:column;
     max-width:80%;
     font-size:18px;
     position: relative;
@@ -99,12 +100,13 @@ export const BodySmsBot = styled.div`
 `
 export const BodySmsButton = styled.div`
     display:flex;
+    flex-direction:column;
     max-width:80%;
     position: relative;
     gap: 5px;
     font-size:18px;
     justify-content: center;
-    align-items:flex-start;
+    align-items:flex-end;
     padding:10px;
     background-color: #FFE9DD;
     align-self:flex-end;
@@ -335,4 +337,13 @@ export const DialogItem = styled.div`
 
 export const DialogItemCheck = styled(DialogItem)`
     background-color:rgba(84, 150, 255, 0.2);
+`
+export const ImgContainer = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+`
+export const Img = styled.img`
+    width: calc(100% / 2 - 10px);
+    flex: 1 1 calc((100% / 2) - 10px);
 `
