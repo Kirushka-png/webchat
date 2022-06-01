@@ -29,7 +29,8 @@ class UserService {
         }
         const hashPassword = await bcrypt.hash(password, 3)
         const user = await db.models.userModel.create({ name, login, password: hashPassword })
-
+        const chat = await db.models.chatModel.create({ admin: user.id, private: true, name: `Избранное` })
+        await db.models.chatUserModel.create({ chatID: chat.id, userID: user.id, messagesFrom: 0, admin: false })
         return await this.defaultResponse(user)
     }
 
@@ -116,9 +117,11 @@ class UserService {
         let dialogs = []
         for (const chat of chats) {
             let dialog = await db.models.chatModel.findOne({ where: { id: chat.chatID } })
-            const nameID = dialog.name.split('/').find((val) => val != userData.id)
-            const firstuser = await db.models.userModel.findByPk(nameID)
-            dialog.name = firstuser.name
+            if (dialog.name != 'Избранное') {
+                const nameID = dialog.name.split('/').find((val) => val != userData.id)
+                const firstuser = await db.models.userModel.findByPk(nameID)
+                dialog.name = firstuser.name
+            }
             dialogs.push(new ChatDTO(dialog))
         }
         return dialogs

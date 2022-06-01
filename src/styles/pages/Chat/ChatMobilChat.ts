@@ -142,14 +142,16 @@ export const ModalMenu = styled.div`
 export const ModalButtons = styled.div`
     display:flex;
     flex-direction:row;
-    flex-wrap: wrap;
     row-gap:20px;
     width: 90%;
     justify-content: space-around;
     align-items:center;
     padding:35px;
- 
 `
+export const SendMessageContainer = styled(ModalButtons)`
+    flex-flow: wrap;
+`
+
 export const ModalContainer = styled.div`
     display:flex;
     flex-direction:row;
@@ -255,6 +257,13 @@ export const SmsInput = styled.input`
         height: 40px;
     }
 `
+
+export const UploadInput = styled.input`
+    display: none;
+`
+export const UploadLabel = styled.label`
+    cursor: pointer;
+`
 export const ModalSettings = styled.div`
     display:flex;
     flex-direction:column;
@@ -287,4 +296,14 @@ export const Images = styled.div`
     @media (max-width:800px) {
         width: 48%; 
     }
+`
+
+export const ImgContainer = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+`
+export const Img = styled.img`
+    width: calc(100% / 2 - 10px);
+    flex: 1 1 calc((100% / 2) - 10px);
 `

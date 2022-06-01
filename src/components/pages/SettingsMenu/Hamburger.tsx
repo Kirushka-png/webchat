@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as Settings } from "images/Chat/Gear.svg";
 export const StyledHamburger = styled.button<{ open: boolean }>`
   left: 5vw;
   top: 7vw;

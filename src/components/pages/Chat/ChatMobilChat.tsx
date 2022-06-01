@@ -8,6 +8,7 @@ import { ReactComponent as LineHor } from "images/Chat/LineHor.svg";
 import { ReactComponent as Online } from "images/Chat/Online.svg";
 import UserImg from 'images/Chat/UserImg.png';
 import { Context } from "index";
+import _ from "lodash";
 import { useContext, useEffect, useRef, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import {
@@ -16,7 +17,7 @@ import {
   ModalContainer,
   ModalHeader, ModalMenu, ModalName, ModalSettings, ModalText,
   ModalWrapper
-} from "../../../styles/pages/Chat/ChatMobilChat";
+} from "styles/pages/Chat/ChatMobilChat";
 import InputMessageMobil from "./inputMessage/InputMessageMobil";
 import MessageMobil from "./message/MessageMobil";
 
@@ -77,7 +78,7 @@ const ChatMobilChat = () => {
                   style={{ height: "40px", width: "40px" }}
                 />
               <ModalName>
-                <ModalText  style={{ margin: "0px" }}>{users.length != 0 && users[0].name}</ModalText>
+                <ModalText  style={{ margin: "0px" }}>{id && (_.find(dialogs,{id: +(id.slice(1))}))?.name}</ModalText>
                 <Online style={{ marginLeft: "-10px" }} />
               </ModalName>
               <ModalSettings >    

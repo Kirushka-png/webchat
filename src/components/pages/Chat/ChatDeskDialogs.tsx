@@ -15,8 +15,6 @@ import {
   ModalHeader, ModalSettings, ModalText, ModalWrapper
 } from "styles/pages/Chat/ChatMobilDialogs";
 
-
-
 const ChatDeskDialogs = () => {
 
   const [dialogs, setDialogs] = useState<IDialog[]>([])

@@ -9,7 +9,6 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useState } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
-import ChangeNameModal from 'components/pages/Chat/ChangeNameModal';
 //<Route path="/main/diagnostics">
 //<Diagnostics />
 // </Route>
@@ -19,7 +18,7 @@ export interface IUserData {
   login: string,
   password: string
 }
-export const MAIN_IP = 'localhost'
+export const MAIN_IP = '46.228.109.253'
 
 
 const App = () => {

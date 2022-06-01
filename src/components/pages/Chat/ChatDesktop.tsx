@@ -11,6 +11,7 @@ import { ReactComponent as LineVert } from "images/Chat/LineVert.svg";
 import { ReactComponent as Online } from "images/Chat/Online.svg";
 import UserImg from "images/Chat/UserImg.png";
 import { Context } from 'index';
+import _ from 'lodash';
 import { observer } from 'mobx-react-lite';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from "react-responsive";
@@ -84,7 +85,7 @@ const ChatDesktop = () => {
                   style={{ height: "50px", width: "50px" }}
                 />
                 <ModalName>
-                  <ModalText>{users.length != 0 && users[0].name}</ModalText>
+                  <ModalText>{id && (_.find(dialogs,{id: +(id.slice(1))}))?.name }</ModalText>
                   <Online style={{ marginLeft: "-10px" }} />
                 </ModalName>
               </ModalHeader>

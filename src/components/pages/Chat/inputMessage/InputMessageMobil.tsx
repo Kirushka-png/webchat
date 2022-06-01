@@ -10,7 +10,8 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useParams } from "react-router-dom";
-import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/ChatMobilChat";
+import { Button, SendMessageContainer, SmsInput, UploadInput, UploadLabel } from "styles/pages/Chat/ChatMobilChat";
+
 interface Props {
     messagesContainer: any
 }
@@ -27,15 +28,16 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
     const [uploadedFiles, setUploadedFiles] = useState<IFile[]>([])
 
     const sendMessage = (text: string, chatID: number | undefined, file: string) => {
-        if (text.trim() != '') {
-            store.io.emit('sendMessage', text, chatID, file)
-            messagesContainer.current && (messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight)
-            setMessageText('')
+        if(text.trim() != '' || uploadedFiles.length != 0){
+          store.io.emit('sendMessage', text, chatID, file)
+          messagesContainer.current && (messagesContainer.current.scrollTop = messagesContainer.current.scrollHeight)
+          setMessageText('')
+          setUploadedFiles([])
         }
-    }
-
-    const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string) => {
-        if (!_.isEqual(store.msgEdit, store.msg) && (text.trim() != '' || file)) {
+      }
+    
+    const editMessage = (messageID: number, chatID: number | undefined, text: string, file: string) =>{
+        if((!_.isEqual(store.msgEdit, store.msg) || !_.isEqual(store.filesEdit, store.files)) && (text.trim() != '' || store.files.length != 0)){
             store.io.emit('editMessage', messageID, chatID, text, file)
         }
         store.closeEditMode()
@@ -46,15 +48,23 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
         temparr = _.filter(temparr, (val) => val.id != id)
         store.setFiles([...temparr])
     }
-    const deleteImg = (id: number) => {
+    const deleteImg=(id: number)=>{
         let temparr = uploadedFiles
-        temparr = _.remove(temparr, (val) => val.id == id)
+        temparr = _.filter(temparr, (val) => val.id != id)
         setUploadedFiles([...temparr])
+    } 
+    const UploadNewFile = (files: FileList | null) => {
+        if(files && files.length != 0){
+            store.UploadFile(files[0]).then((file) =>{
+                store.editModeOn ? store.setFiles([...store.files, file]) : setUploadedFiles(a => [...a, file])
+            })
+        }
     }
 
     return (
-        <ModalButtons>
-            <Images style={{ width: "30px", height: "30px" }} />
+        <SendMessageContainer>
+            <UploadLabel htmlFor="upload"><Images /></UploadLabel>
+            <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)} accept="image/*"/>
             <Mic style={{ width: "30px", height: "30px" }} />
             {store.editModeOn ?
                 <>
@@ -75,7 +85,7 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
                 store.editModeOn ? <ShowImg uploadedFiles={store.files} onDelete={(id: number) => deleteImgFromStore(id)} /> :
                     <ShowImg uploadedFiles={uploadedFiles} onDelete={(id: number) => deleteImg(id)} />
             }
-        </ModalButtons>
+        </SendMessageContainer>
     )
 }
 export default observer(InputMessageMobil)

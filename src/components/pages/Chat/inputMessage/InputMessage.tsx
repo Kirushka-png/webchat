@@ -58,9 +58,8 @@ export const InputMessage = ({ messagesContainer }: Props) => {
         setUploadedFiles([...temparr])
     } 
 
-    const [files, setFiles] = useState<File>();
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        setFiles(acceptedFiles[0]);
+    const onDrop = useCallback((acceptedFiles: any) => {
+        UploadNewFile(acceptedFiles as FileList)
       }, []);
       const { getRootProps, getInputProps, isDragActive } = useDropzone({
         multiple: false,
@@ -72,7 +71,7 @@ export const InputMessage = ({ messagesContainer }: Props) => {
         <>
             <ModalButtons {...getRootProps()}>
                 <UploadLabel htmlFor="upload"><Images /></UploadLabel>
-                <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)}/>
+                <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)} accept="image/*"/>
                 <Mic />
                 {store.editModeOn ?  
                 <>

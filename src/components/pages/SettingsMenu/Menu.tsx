@@ -5,18 +5,19 @@ import { ReactComponent as PersonCircle } from 'images/SettingsImg/PersonCircle.
 import { ReactComponent as TextareaT } from 'images/SettingsImg/TextareaT.svg';
 import { ReactComponent as XCircle } from 'images/SettingsImg/XCircle.svg';
 import { Context } from 'index';
+import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { ModalText } from "../../../styles/pages/Chat/Chat";
-import { observer } from 'mobx-react-lite';
 
 const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100vw;
   right:17%;
   top: 0;
-  position: fixed;
+  position: absolute;
+  z-index: 100;
   width:21%;
   height:200px;
   border-radius: 0 0  18px 18px;
