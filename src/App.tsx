@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useState } from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
 import Htmlcontainer from 'styles/App';
+import ChangeNameModal from 'components/pages/Chat/ChangeNameModal';
 //<Route path="/main/diagnostics">
 //<Diagnostics />
 // </Route>
@@ -34,7 +35,7 @@ const App = () => {
           store.isLoading ? <></> : !store.isAuth ? <>
             <Route path="/" element={<Navigate to="/reg" replace />} />
             <Route path="login" element={<Login />} />
-            <Route path="reg" element={<Registration />} />
+            <Route path="reg" element={<Registration />} />            
           </>
             : <>
               <Route path="*" element={<Navigate to="/chat" replace />} />

@@ -5,7 +5,8 @@ export const ModalWrapper = styled.div`
     display:flex;
     width: 100%;
     position: absolute;
-    height:100%;
+    z-index: 99999999;
+    height:100vh;
     top: 0;
     background-color:rgba(98, 98, 98, 0.4);
 `
@@ -90,6 +91,8 @@ export const ModalText = styled.p`
 export const ModalMiniText = styled.p`
     font-size: 20px;  
     width: 90%; 
+    margin:0;
+    padding:0;
     text-align:center; 
     @media (max-width:800px) {
         font-size: 16px;  
@@ -144,4 +147,24 @@ export const Buttons = styled.div`
     justify-content: center;
     align-items:center;
     flex-direction:row;
+`
+
+export const SmsInput = styled.input`
+    width: 50%;
+    height: 45px;
+    font-size: 14px;
+    padding-left:2%;
+    background-color: inherit;
+    cursor: pointer;
+    border: 2px solid #5496FF;
+    border-radius: 11px;
+    border-radius: 8px;
+    @media (max-width:1200px) {
+        width: 50%;
+    }
+    @media (max-width:800px) {
+        width: 78%; 
+        margin-left:10%;
+        margin-right:10%;
+    }
 `
