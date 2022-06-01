@@ -88,7 +88,6 @@ class ChatService {
 
     async editMessage(refreshToken, messageID, chatID, text, files) {
         const userData = tokenService.validateRefreshToken(refreshToken);
-        console.log(files)
         if (await this.checkUserInChat(userData.id, chatID)) {
             const message = await db.models.messageModel.update({ text, file: files, wasRedacted: true }, { where: { id: messageID } })
             return new MessageDTO(message)
