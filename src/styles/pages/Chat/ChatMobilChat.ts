@@ -142,6 +142,8 @@ export const ModalMenu = styled.div`
 export const ModalButtons = styled.div`
     display:flex;
     flex-direction:row;
+    flex-wrap: wrap;
+    row-gap:20px;
     width: 90%;
     justify-content: space-around;
     align-items:center;

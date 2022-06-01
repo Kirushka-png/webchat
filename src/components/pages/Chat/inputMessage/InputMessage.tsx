@@ -1,11 +1,14 @@
 //import { ReactComponent as CloseModal } from "images/CloseModal.svg";
 import { IFile } from "codebase/models/IFile";
+import { DropImg } from 'components/pages/Chat/DropImg/DropImg';
+import { ShowImg } from 'components/pages/Chat/DropImg/ShowImg';
 import { ReactComponent as Images } from "images/Chat/Images.svg";
 import { ReactComponent as Mic } from "images/Chat/Mic.svg";
 import { Context } from "index";
 import _ from "lodash";
 import { observer } from 'mobx-react-lite';
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { useParams } from "react-router-dom";
 import { Button, ModalButtons, SmsInput, UploadInput, UploadLabel } from "styles/pages/Chat/Chat";
 
@@ -42,9 +45,23 @@ export const InputMessage = ({ messagesContainer }: Props) => {
             })
         }
     }
+    const deleteImg=()=>{
 
+    } 
+
+    const [files, setFiles] = useState<File>();
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        setFiles(acceptedFiles[0]);
+      }, []);
+      const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        multiple: false,
+        accept: { "image/*": [".jpeg", ".png", ".jpg", ".gif"] },
+        onDrop,
+        noClick:true,
+      });
     return (
-        <ModalButtons>
+        <>
+        <ModalButtons {...getRootProps()}>
             <UploadLabel htmlFor="upload"><Images /></UploadLabel>
             <UploadInput type="file" id="upload" onChange={(e) => UploadNewFile(e.target.files)}/>
             <Mic />
@@ -59,6 +76,10 @@ export const InputMessage = ({ messagesContainer }: Props) => {
                 <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, '') }}>Отправить</Button>
             </>
             }
-        </ModalButtons>)
+            {isDragActive&& <DropImg/>}       
+        <ShowImg onDelete={()=> deleteImg()}/>
+        </ModalButtons> 
+        </>
+        )
 }
 export default observer(InputMessage)

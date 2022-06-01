@@ -1,13 +1,3 @@
-import {
-  ModalWrapper,
-  ModalContainerDrop,
-  DropContainer,
-  ModalMiniText,
-  ModalButton,
-  ModalCont,
-  Buttons,
-} from "../../../styles/pages/Chat/DeleteClearModal";
-
 import { MyDropzone } from '../Chat/Upload'
 
 const ChatMobilDrop = () => {
