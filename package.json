@@ -2,7 +2,7 @@
     "name": "webchat",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://46.228.109.253:5000/api",
+    "proxy": "http://localhost/api",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.1.1",

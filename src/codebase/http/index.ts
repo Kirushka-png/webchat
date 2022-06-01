@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const API_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api' : `http://46.228.109.253:5000/api`
-export const UPLOADS_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/uploads' : `http://46.228.109.253:5000/uploads`
+export const API_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api' : `http://localhost/api`
+export const UPLOADS_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:5000/uploads' : `http://localhost/uploads`
 
 const api = axios.create({
     withCredentials: true,
