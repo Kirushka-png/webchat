@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useParams } from "react-router-dom";
 import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/ChatMobilChat";
-
+import { ShowImg } from 'components/pages/Chat/DropImg/ShowImg';
 interface Props{
     messagesContainer: any
 }
@@ -57,9 +57,9 @@ export const InputMessageMobil = ({ messagesContainer }: Props) => {
                 { !isDesktop1 ? 
                 <Send style={{ width: "30px",height:"30px" }} onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}/> : 
                 <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}>Отправить</Button>}
-
             </>
             }
+            <ShowImg/>
         </ModalButtons>
     )
 }

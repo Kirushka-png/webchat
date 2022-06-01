@@ -7,6 +7,10 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, ModalButtons, SmsInput } from "styles/pages/Chat/Chat";
+import { DropImg } from 'components/pages/Chat/DropImg/DropImg';
+import { ShowImg } from 'components/pages/Chat/DropImg/ShowImg';
+import { useDropzone } from "react-dropzone";
+import React, { useCallback } from "react";
 
 interface Props{
     messagesContainer: any
@@ -34,9 +38,24 @@ export const InputMessage = ({ messagesContainer }: Props) => {
         store.closeEditMode()
     }
 
+    const deleteImg=()=>{
+
+    } 
+
+    const [files, setFiles] = useState<File>();
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        setFiles(acceptedFiles[0]);
+      }, []);
+      const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        multiple: false,
+        accept: { "image/*": [".jpeg", ".png", ".jpg", ".gif"] },
+        onDrop,
+        noClick:true,
+      });
     return (
-        <ModalButtons>
-            <Images />
+        <>
+        <ModalButtons {...getRootProps()}>
+            <Images style={{cursor:"pointer"}}/>
             <Mic />
             {store.editModeOn ?  
             <>
@@ -49,6 +68,10 @@ export const InputMessage = ({ messagesContainer }: Props) => {
                 <Button onClick={() => { sendMessage(messageText, id ? +id.slice(1) : undefined, uploadedFiles) }}>Отправить</Button>
             </>
             }
-        </ModalButtons>)
+            {isDragActive&& <DropImg/>}       
+        <ShowImg onDelete={()=> deleteImg()}/>
+        </ModalButtons> 
+        </>
+        )
 }
 export default observer(InputMessage)

@@ -70,6 +70,15 @@ export const DropContainer = styled.div`
     justify-content: center;
     align-items:center;
 `
+
+export const DropContainerImg = styled.div`
+    width: 100%;
+    height: 200px; 
+    display:flex;
+    justify-content: center;
+    align-items:center;
+`
+
 export const DropContainerImage = styled.div<DropContainerProps>`
     width: 100%;
     height: 100%;
@@ -166,5 +175,26 @@ export const SmsInput = styled.input`
         width: 78%; 
         margin-left:10%;
         margin-right:10%;
+    }
+`
+export const ImgShowCont = styled.div`
+    display:flex;
+    width:100%;
+    max-height: 200px;
+    justify-content:flex-start;
+    align-items:center;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:10px;
+    overflow-y:auto;    
+    @media (max-width:1000px) {
+    gap:5px;
+    }
+`
+export const ImgShow = styled.div`
+    display:flex;
+    height: 100px;
+    @media (max-width:1000px) {
+    height: 50px;   
     }
 `

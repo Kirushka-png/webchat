@@ -1,5 +1,6 @@
 import Chat from 'components/pages/Chat/Chat';
 import ChatDialog from 'components/pages/Chat/ChatDialog';
+import ChatMobilDrop from 'components/pages/Chat/ChatMobilChatDrop';
 import Login from 'components/pages/Login/Login';
 import Registration from 'components/pages/Login/Registration';
 import Main from 'components/pages/Main/Main';
@@ -36,7 +37,8 @@ const App = () => {
           store.isLoading ? <></> : !store.isAuth ? <>
             <Route path="/" element={<Navigate to="/reg" replace />} />
             <Route path="login" element={<Login />} />
-            <Route path="reg" element={<Registration />} />            
+            <Route path="reg" element={<Registration />} />  
+            <Route path="ch" element={<ChatMobilDrop />} />          
           </>
             : <>
               <Route path="*" element={<Navigate to="/chat" replace />} />
